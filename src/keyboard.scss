@@ -1,0 +1,98 @@
+//键盘样式
+.exam_skin_wood .fractions_keyboard_list {
+    border: 1px solid #686868;
+    background: #ebebeb;
+    position: absolute;
+    width: 13.91667em;
+    z-index: 100;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+}
+
+.exam_skin_wood .fractions_keyboard_list .hd {
+    height: 1.66667em;
+    background-size: auto 100%;
+    border-bottom: 1px solid #bababa;
+}
+
+.exam_skin_wood .fractions_keyboard_list .hd .btn_close {
+    overflow: hidden;
+    float: right;
+    cursor: pointer;
+    height: 1.625em;
+    padding: .45833em .625em
+}
+
+.exam_skin_wood .fractions_keyboard_list .hd .btn_close b {
+    width: .79167em;
+    height: .79167em;
+    display: block;
+    background-size: 100% 100%
+}
+
+.exam_skin_wood .fractions_keyboard_list .hd .btn_close:hover {
+    background: #d8d7d7
+}
+
+.exam_skin_wood .fractions_keyboard_list .hd .btn_close:active {
+    background: #d3d3d3
+}
+
+.exam_skin_wood .fractions_keyboard_list .bd {
+    padding: .41667em
+}
+
+.exam_skin_wood .fractions_keyboard_list .bd a {
+    width: 3.66667em;
+    height: 2.25em;
+    line-height: 2.25em;
+    float: left;
+    color: #4d4d4d;
+    background: #fff;
+    text-align: center;
+    border-radius: .20833em;
+    border: 1px solid #9c9c9c;
+    margin: .29167em;
+    text-decoration: none;
+}
+
+.exam_skin_wood .fractions_keyboard_list .bd a .active,
+.exam_skin_wood .fractions_keyboard_list .bd a:active {
+    background: #31b0ee;
+    color: #fff;
+    border-color: #007ab6
+}
+
+.exam_skin_wood .fractions_keyboard_list .bd a.btn_enter span {
+    font-size: 1em
+}
+
+.exam_skin_wood .fractions_keyboard_list .bd a.btn_del {
+    text-align: center
+}
+
+.exam_skin_wood .fractions_keyboard_list .bd a.btn_del span {
+    width: 2.0833333em;
+    height: 1.05555em;
+    display: inline-block;
+    margin: 0.17em auto 0;
+    overflow: hidden;
+    background: url(../resources/images/icon_del_normal.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.exam_skin_wood .fractions_keyboard_list .bd a.btn_del.active,
+.exam_skin_wood .fractions_keyboard_list .bd a.btn_del:active {
+    background: #31b0ee
+}
+
+.exam_skin_wood .fractions_keyboard_list .bd a.btn_del.active span,
+.exam_skin_wood .fractions_keyboard_list .bd a.btn_del:active span {
+    background: url(../resources/images/icon_del_active.png) no-repeat;
+    background-size: 100% 100%
+}
+
+.exam_skin_wood .fractions_keyboard_list .bd a span {
+    font-size: 1.5em;
+    vertical-align: top;
+}

@@ -1,0 +1,969 @@
+@charset "UTF-8";
+$baseFontSize: 24px !default;
+$baseFontFamily: 'Microsoft YaHei',
+Helvetica,
+Arial,
+sans-serif !default;
+@function pxToEm($px, $baseSize:$baseFontSize) {
+    @return $px / $baseSize * 1em;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import "tools_common";
+body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #afc7d8;
+    a {
+        text-decoration: none;
+    }
+    ul {
+        li {
+            list-style: none;
+        }
+    }
+    @import "fraction";
+    .hide_dom {
+        display: none;
+    }
+    .Liquid {
+        font-family: 'Liquid Crystal';
+    }
+    .originOutsideHideDistance,
+    .shortHideDistance,
+    .hidden {
+        visibility: hidden;
+        pointer-events: none;
+    }
+    .exam_skin_wood {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        .yahei36 {
+            font-size: pxToEm(36px);
+        }
+        .NewNumberLine_wrapper {
+            width: 100%;
+            height: 100%;
+            padding: 2.66667em 0 5em;
+        }
+        .indexLayer {
+            position: absolute;
+            z-index: 99999999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            //background: rgba(0, 0, 0, .4);
+            .skip {
+                position: absolute;
+                z-index: 99999999;
+                right: pxToEm(184px);
+                top: pxToEm(110px);
+                width: pxToEm(160px);
+                height: pxToEm(60px);
+                line-height: pxToEm(60px);
+                background: rgba(255, 255, 255, .3);
+                border-radius: 1.25em;
+                color: #fff;
+                text-align: center;
+                span {
+                    font-size: 1.5em;
+                }
+            }
+            .operation {
+                position: absolute;
+                z-index: 99999999;
+                transform: translate(-50%, -50%);
+            }
+            .nextTep {
+                position: absolute;
+                z-index: 99999999;
+                left: 50%;
+                bottom: pxToEm(145px);
+                transform: translate(-50%, 0);
+                width: pxToEm(274px);
+                height: pxToEm(97px);
+                background: url(../resources/images/next-tep.png) no-repeat;
+                background-size: 100% 100%;
+            }
+            &.layerFull01 {
+                background: url(../resources/images/index1.png) no-repeat;
+                background-size: 100% 100%;
+                /*.operation {
+                    width: pxToEm(599px);
+                    height: pxToEm(335px);
+                    background: url(../resources/images/guide_01.png) no-repeat;
+                    background-size: 100% 100%;
+                    left: 50%;
+                    top: 50%;
+                }*/
+            }
+            &.layerFull02 {
+                background: url(../resources/images/index2.png) no-repeat;
+                background-size: 100% 100%;
+                /* .operation {
+                    width: pxToEm(945px);
+                    height: pxToEm(335px);
+                    background: url(../resources/images/guide_02.png) no-repeat;
+                    background-size: 100% 100%;
+                    left: 50%;
+                    top: 50%;
+                }*/
+            }
+            &.layerFull03 {
+                background: url(../resources/images/mask01.png) no-repeat;
+                background-size: 100% 100%;
+                /*.operation {
+                    width: pxToEm(1013px);
+                    height: pxToEm(550px);
+                    background: url(../resources/images/guide_03.png) no-repeat;
+                    background-size: 100% 100%;
+                    left: 46.1%;
+                    bottom: -7.8em;
+                }*/
+            }
+            &.layerFull04 {
+                background: url(../resources/images/mask02.png) no-repeat;
+                background-size: 100% 100%;
+                /*.operation {
+                    width: pxToEm(764px);
+                    height: 20.5em;
+                    background: url(../resources/images/guide_04.png) no-repeat;
+                    background-size: 100% 100%;
+                    left: 53%;
+                    bottom: -3em;
+                }*/
+            }
+            &.layerFull05 {
+                background: url(../resources/images/mask03.png) no-repeat;
+                background-size: 100% 100%;
+                /* .operation {
+                    width: pxToEm(632px);
+                    height: pxToEm(212px);
+                    background: url(../resources/images/guide_05.png) no-repeat;
+                    background-size: 100% 100%;
+                    left: 67%;
+                    bottom: 1.9em;
+                }*/
+            }
+            &.layerFull03,
+            &.layerFull04,
+            &.layerFull05 {
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                .nextTep {
+                    left: 84%;
+                    bottom: 5.8em;
+                }
+            }
+        }
+        .NewNumberLine_layer {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 99999999;
+            left: 0;
+            top: 0;
+        }
+        .NewNumberLine_body {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: -webkit-box;
+            -webkit-box-align: center;
+        }
+        .menuWrapper {
+            position: absolute;
+            left: 0;
+        }
+        .menuContainer {
+            position: absolute;
+            top: pxToEm(-10px);
+            backface-visibility: hidden;
+        }
+        .ui_btn_round {
+            position: absolute;
+            margin-left: -7.8em;
+            background: linear-gradient(to top, #e9e9e9 0, #fff 100%);
+            border: 1px solid #397274;
+            border-radius: 0.333em;
+            width: 15.6em;
+            //height:pxToEm(73px);
+            box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+            overflow: hidden;
+            display: flex;
+            backface-visibility: hidden;
+            li.myBtn {
+                float: left;
+                width: 0;
+                flex-grow: 1;
+                height: pxToEm(73px);
+                position: relative;
+                backface-visibility: hidden;
+                margin-bottom: -1px;
+                &.current {
+                    a {
+                        color: #fff;
+                        background: linear-gradient(to top, #76b8ba 0, #89c5c7 100%);
+                    }
+                }
+                &.ui_btn_disabled {
+                    a {
+                        color: #97a0a6;
+                        background: linear-gradient(to bottom, #c8d1d7 0, #c1c8cc 100%);
+                    }
+                }
+                a {
+                    display: inline-block;
+                    width: 100%;
+                    text-align: center;
+                    height: pxToEm(73px);
+                    line-height: pxToEm(73px);
+                    color: #333;
+                    border-right: 1px solid #397274;
+                    .round_txt {
+                        font-size: pxToEm(26px);
+                    }
+                }
+            }
+            li.myBtn:nth-child(1) a {
+                border-radius: 0.333em 0 0 .333em;
+            }
+            li.myBtn:nth-child(3) a {
+                border-radius: 0 0.333em 0.333em 0;
+            }
+            li:last-child a {
+                border-right: 1px solid transparent;
+            }
+        }
+        @mixin rectBox($color) {
+            position: absolute;
+            top: pxToEm(77px);
+            z-index: 99;
+            min-width: pxToEm(135px);
+            border: pxToEm(3px) solid $color;
+            border-radius: pxToEm(5px);
+            background: #fff;
+            box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+            padding: pxToEm(28px) pxToEm(20px);
+            transform: translateX(-50%);
+            color: $color;
+            &.active {
+                box-shadow: 0 0 0 3px #fff;
+            }
+        }
+        .rectBox {
+            pointer-events: auto;
+            text-align: center;
+            &>span {
+                font-size: pxToEm(42px);
+                font-weight: bolder;
+            }
+            input {
+                background: transparent;
+            }
+            &.green {
+                @include rectBox(#00a9a0);
+                input {
+                    color: #00a9a0;
+                }
+            }
+            &.pink {
+                @include rectBox(#ff3954);
+                input {
+                    color: #ff3954;
+                }
+            }
+            &.blue {
+                @include rectBox(#0074f7);
+                input {
+                    color: #0074f7;
+                }
+            }
+            /* &::before{
+                content: '';
+                display: inline-block;
+                position: absolute;
+                bottom:100%;
+                left:50%;
+                margin-left:-0.08333em;
+                width:0.16667em;
+                height:100px;
+                background: #00a9a0;
+            } */
+        }
+        .editBtnContainer {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            .editImage {
+                top: pxToEm(77px);
+                left: 0;
+                margin-left: pxToEm(-32px);
+                display: none;
+                position: absolute;
+                width: pxToEm(64px);
+                height: pxToEm(64px);
+                &.active {
+                    display: block;
+                }
+                &.blue {
+                    background: url(../resources/images/edit-blue.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+                &.pink {
+                    background: url(../resources/images/edit-red.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+                &.green {
+                    background: url(../resources/images/edit-green.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+        }
+        .domContainer {
+            position: absolute;
+            left: 0;
+            width: 100%;
+        }
+        .textBoxContainer {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            .textBox {
+                position: absolute;
+                // top: pxToEm(-40px);
+                font-weight: bold;
+                font-size: pxToEm(42px);
+                line-height: 1;
+                transform: translateX(-50%);
+                // margin-top: pxToEm(-4px);
+                &.green {
+                    color: #00a9a0;
+                }
+                &.pink {
+                    color: #ff3954;
+                }
+                &.blue {
+                    color: #0074f7;
+                }
+            }
+        }
+        .cvInputContainer {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            .rectBox {
+                overflow: hidden;
+                input {
+                    padding: 0 pxToEm(10px);
+                }
+            }
+            .cv_input {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                bottom: 0;
+                font-weight: bold;
+                font-size: pxToEm(42px);
+                line-height: 1;
+                text-align: center;
+            }
+        }
+        .unitTextContainer {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            font-family: 'Microsoft YaHei';
+            font-weight: bold;
+            font-size: pxToEm(70px);
+            line-height: 1;
+            &>span {
+                position: absolute;
+                transform: translateX(-50%);
+            }
+            .fm-frac {
+                font-size: 0.75em;
+            }
+        }
+        .NewNumberLine_stage {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            .unitText {
+                dominant-baseline: hanging;
+                font-weight: bold;
+                font-size: pxToEm(42px);
+                line-height: 1;
+            }
+            .activedPoint {
+                visibility: hidden;
+            }
+            .activedPointGroup {
+                .activedPoint {
+                    visibility: visible;
+                }
+                .normalPoint {
+                    visibility: hidden;
+                }
+            }
+            .markPointGroup {
+                .selectedMarkPoint {
+                    display: none;
+                }
+                &.active {
+                    .selectedMarkPoint {
+                        display: block;
+                    }
+                    .markPoint {
+                        display: none;
+                    }
+                }
+            }
+        }
+        /*
+        **** 弹窗
+        */
+        .NewNumberLine_dialog_wrapper {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            z-index: 99999999;
+            .com_dialog_box {
+                display: inline-block;
+                background-color: rgba(47, 47, 47, 0.8);
+                border-radius: pxToEm(10px);
+                padding: pxToEm(30px) pxToEm(50px);
+                color: #fff;
+                vertical-align: middle;
+                text-align: center;
+            }
+            .com-dialog-inner {
+                color: #fff;
+                border-radius: 10px;
+                padding: pxToEm(40px) pxToEm(50px);
+                background: rgba(47, 47, 47, .8);
+                &.NewNumberLine-dialog-prompt {
+                    padding: 1.6666666667em 1.5em 1.66667em 2.3em;
+                }
+            }
+            .com-dialog-btn {
+                text-align: center;
+                .dia-btn {
+                    display: inline-block;
+                    min-width: pxToEm(138px);
+                    height: pxToEm(50px);
+                    padding: 0 1em;
+                    line-height: pxToEm(50px);
+                    font-size: pxToEm(36px);
+                    color: #384650;
+                    border-radius: pxToEm(5px);
+                    border-: 1px solid #fff;
+                    margin: 1.11111em 1.08333em pxToEm(25px);
+                    background: linear-gradient(top, #fff, #e9e9e9);
+                    background: -webkit-linear-gradient(top, #fff, #e9e9e9);
+                    &:active {
+                        background: linear-gradient(to top, #76b8ba 0, #89c5c7 100%);
+                        color: #fff;
+                    }
+                }
+            }
+        }
+        .NewNumberLine-dialog-confirm {
+            .tip-txt {
+                font-size: pxToEm(48px);
+                line-height: pxToEm(48px);
+                text-align: left;
+                padding: 0.5em 0;
+            }
+        }
+        .NewNumberLine-dialog-prompt .tip-txt {
+            font-size: pxToEm(48px);
+        }
+        /*
+           **** 弹窗 end
+           */
+        //底部样式 start
+        .NewNumberLine_footer {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 5em;
+            width: 100%;
+            background: #cfdee9;
+            padding: 0 4em;
+            display: -webkit-box;
+            li.click_disabled .txt {
+                color: #a9b6c0;
+            }
+        }
+        //+++点击标记点输入弹框和键盘 start +++
+        .NewNumberLine_dialogInput {
+            position: absolute;
+            z-index: 99;
+            bottom: 127%;
+            left: 50%;
+            -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+            .inputBox {
+                position: relative;
+                padding: pxToEm(22px) pxToEm(42px);
+                background: rgba(47, 47, 47, .8);
+                border-radius: pxToEm(6px);
+                &::before {
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    margin-left: -0.54166667em;
+                    content: '';
+                    display: inline-block;
+                    width: 0;
+                    height: 0;
+                    border-top: pxToEm(15px) solid rgba(47, 47, 47, .8);
+                    border-left: pxToEm(13px) solid transparent;
+                    border-right: pxToEm(13px) solid transparent;
+                }
+            }
+            .mPoint_input {
+                -webkit-user-select: all;
+                user-select: all;
+                width: 4.3055553em;
+                height: 1.8333em;
+                background: #fcfcfc;
+                border-radius: .5em;
+                text-align: center;
+                line-height: 1.8333em;
+                font-weight: 700;
+                font-size: 1.5em;
+                vertical-align: middle;
+                border: 1px solid #686868;
+                ime-mode: disabled;
+                color: #4d4d4d;
+                outline: none;
+                &::selection {
+                    background: #6ec9f6;
+                    color: #4d4d4d;
+                }
+            }
+        }
+        .NewNumberLine_dialogInput.lengthPop {
+            .inputBox {
+                padding: 0;
+                width: 13.25em;
+            }
+            .item_1:active .no_number {
+                color: #e06313;
+            }
+            .item_1:active .noNumber_icon {
+                background: url(../resources/images/noNumberon-icon.png) no-repeat;
+                background-size: 100% 100%;
+            }
+            dd {
+                //border-bottom: 1px solid rgba(255, 255, 255, .1);
+                line-height: pxToEm(88px);
+                color: #fff;
+                text-align: center;
+                position: relative;
+                &.item_1::before {
+                    content: '';
+                    display: inline-block;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0.4166667em;
+                    right: 0.4166667em;
+                    height: 1px;
+                    background: rgba(255, 255, 255, .1);
+                }
+                .itemTxt {
+                    font-size: 1.5em;
+                    padding-right: 0.2em;
+                    vertical-align: middle;
+                }
+                .noNumber_icon {
+                    display: inline-block;
+                    width: pxToEm(124px);
+                    height: pxToEm(27px);
+                    background: url(../resources/images/noNumber-icon.png) no-repeat;
+                    background-size: 100% 100%;
+                    vertical-align: middle;
+                    margin-right: 0.6em;
+                }
+            }
+            dd:nth-child(2) {
+                line-height: pxToEm(110px);
+            }
+            .fractions_keyboard_list {
+                .bd a:last-child {
+                    width: 7.85em;
+                }
+            }
+        }
+        //+++点击标记点输入弹框和键盘 end+++
+        .txt {
+            display: block;
+            text-align: center;
+            font-size: 1.5em;
+            white-space: nowrap;
+            color: #292525;
+            margin-top: pxToEm(12px);
+        }
+        .NewNumberLine_left {
+            .fractions_keyboard_list .bd .btn_range {
+                position: relative;
+                width: 94%;
+                height: 2.9166667em;
+                color: #4d4d4d;
+                text-align: left;
+                float: left;
+                margin: .29167em;
+                background: #ebebeb;
+                border: 1px solid #c3c3c3;
+                padding: 0.08333em;
+                span,
+                input {
+                    font-size: 2em;
+                    vertical-align: middle;
+                    display: inline-block;
+                    float: left;
+                    &.symbol {
+                        padding: 0 0.67em;
+                    }
+                }
+                input {
+                    width: 100%;
+                    height: 100%;
+                    border: 1px solid #9c9c9c;
+                    background: #d4d4d4;
+                    text-align: right;
+                    float: left;
+                    padding: 0 0.4166667em;
+                    color: #4d4d4d;
+                }
+            }
+            width: 36.5%;
+            display: -webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-pack: end;
+            //padding: 0 pxToEm(130px);
+            li {
+                float: left;
+                margin-right: pxToEm(15px);
+                position: relative;
+                a.com_btns {
+                    margin: 0;
+                    padding: pxToEm(15px) pxToEm(28px);
+                }
+                a.com_btns.btns-primary .btns-primary-icon {
+                    margin-right: 0;
+                }
+                a.com_btns span {
+                    width: pxToEm(42px);
+                    height: pxToEm(42px);
+                    display: inline-block;
+                }
+                .icon {
+                    height: pxToEm(56px);
+                    display: block;
+                    i {
+                        display: block;
+                        width: pxToEm(82px);
+                        height: pxToEm(56px);
+                        margin: 0 auto;
+                        overflow: hidden;
+                        background-repeat: no-repeat;
+                    }
+                }
+                &.less {
+                    .btns-primary-icon {
+                        background: url(../resources/images/less.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns:active .btns-primary-icon {
+                        background: url(../resources/images/less-on.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns.ui_btn_active .btns-primary-icon {
+                        background: url(../resources/images/less-on.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns.click_disabled .btns-primary-icon {
+                        background: url(../resources/images/less-dis.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                }
+                &.lessThan {
+                    .btns-primary-icon {
+                        background: url(../resources/images/lessThan.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns:active .btns-primary-icon {
+                        background: url(../resources/images/lessThan-on.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns.ui_btn_active .btns-primary-icon {
+                        background: url(../resources/images/lessThan-on.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns.click_disabled .btns-primary-icon {
+                        background: url(../resources/images/lessThan-dis.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                }
+                &.greaterThan {
+                    .btns-primary-icon {
+                        background: url(../resources/images/greaterThan.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns:active .btns-primary-icon {
+                        background: url(../resources/images/greaterThan-on.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns.ui_btn_active .btns-primary-icon {
+                        background: url(../resources/images/greaterThan-on.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns.click_disabled .btns-primary-icon {
+                        background: url(../resources/images/greaterThan-dis.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                }
+                &.greater {
+                    .btns-primary-icon {
+                        background: url(../resources/images/greater.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns:active .btns-primary-icon {
+                        background: url(../resources/images/greater-on.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns.ui_btn_active .btns-primary-icon {
+                        background: url(../resources/images/greater-on.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .com_btns.click_disabled .btns-primary-icon {
+                        background: url(../resources/images/greater-dis.png) no-repeat;
+                        background-size: 100% 100%;
+                    }
+                }
+            }
+        }
+        .NewNumberLine_right {
+            width: 63.5%;
+            display: -webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-pack: end;
+            padding-right: pxToEm(80px);
+            .txt {
+                margin-top: 0.1em;
+            }
+            li {
+                float: left;
+                margin-left: pxToEm(78px);
+                .txt {
+                    margin-top: pxToEm(3px);
+                }
+                .icon {
+                    display: block;
+                    i {
+                        display: block;
+                        width: pxToEm(86px);
+                        height: pxToEm(58px);
+                        margin: 0 auto;
+                        overflow: hidden;
+                        background-repeat: no-repeat;
+                    }
+                }
+                &.revert,
+                &.clearer,
+                &.delete {
+                    .icon i {
+                        width: pxToEm(72px);
+                        height: pxToEm(58px);
+                    }
+                }
+                &.mPoint {
+                    position: relative;
+                    i {
+                        background: url(../resources/images/mPoint.png);
+                        background-size: 100% 100%;
+                    }
+                    &:active i {
+                        background: url(../resources/images/mPoint-on.png);
+                        background-size: 100% 100%;
+                    }
+                    &.ui_btn_active i {
+                        background: url(../resources/images/mPoint-on.png);
+                        background-size: 100% 100%;
+                    }
+                    &.click_disabled i {
+                        background: url(../resources/images/mPoint-dis.png);
+                        background-size: 100% 100%;
+                    }
+                }
+                &.perLength {
+                    position: relative;
+                    i {
+                        background: url(../resources/images/perLength.png);
+                        background-size: 100% 100%;
+                    }
+                    &:active i {
+                        background: url(../resources/images/perLength-on.png);
+                        background-size: 100% 100%;
+                    }
+                    &.ui_btn_active i {
+                        background: url(../resources/images/perLength-on.png);
+                        background-size: 100% 100%;
+                    }
+                    &.click_disabled i {
+                        background: url(../resources/images/perLength-dis.png);
+                        background-size: 100% 100%;
+                    }
+                }
+                &.revert {
+                    i {
+                        background: url(../resources/images/revert.png);
+                        background-size: 100% 100%;
+                    }
+                    &:active i {
+                        background: url(../resources/images/revert-on.png);
+                        background-size: 100% 100%;
+                    }
+                    &.ui_btn_active i {
+                        background: url(../resources/images/revert-on.png);
+                        background-size: 100% 100%;
+                    }
+                    &.click_disabled i {
+                        background: url(../resources/images/revert-dis.png);
+                        background-size: 100% 100%;
+                    }
+                }
+                &.clearer {
+                    i {
+                        background: url(../resources/images/clear.png);
+                        background-size: 100% 100%;
+                    }
+                    &:active i {
+                        background: url(../resources/images/clear-on.png);
+                        background-size: 100% 100%;
+                    }
+                    &.ui_btn_active i {
+                        background: url(../resources/images/clear-on.png);
+                        background-size: 100% 100%;
+                    }
+                    &.click_disabled i {
+                        background: url(../resources/images/clear-dis.png);
+                        background-size: 100% 100%;
+                    }
+                }
+                &.delete {
+                    i {
+                        background: url(../resources/images/delete.png);
+                        background-size: 100% 100%;
+                    }
+                    &:active i {
+                        background: url(../resources/images/delete-on.png);
+                        background-size: 100% 100%;
+                    }
+                    &.ui_btn_active i {
+                        background: url(../resources/images/delete-on.png);
+                        background-size: 100% 100%;
+                    }
+                    &.click_disabled i {
+                        background: url(../resources/images/delete-dis.png);
+                        background-size: 100% 100%;
+                    }
+                }
+            }
+            li.clearer,
+            li.delete {
+                margin-left: pxToEm(68px);
+            }
+        }
+        .greenHollowGroup {
+            .hollowPointActive {
+                display: none;
+            }
+        }
+        .greenHollowGroup.active {
+            .hollowPointActive {
+                display: block;
+            }
+        }
+        .greenFullGroup {
+            .fullPointActive {
+                display: none;
+            }
+        }
+        .greenFullGroup.active {
+            .fullPointActive {
+                display: block;
+            }
+        }
+        .pinkHollowGroup {
+            .hollowPointActive {
+                display: none;
+            }
+        }
+        .pinkHollowGroup.active {
+            .hollowPointActive {
+                display: block;
+            }
+        }
+        .pinkFullGroup {
+            .fullPointActive {
+                display: none;
+            }
+        }
+        .pinkFullGroup.active {
+            .fullPointActive {
+                display: block;
+            }
+        }
+        .blueHollowGroup {
+            .hollowPointActive {
+                display: none;
+            }
+        }
+        .blueHollowGroup.active {
+            .hollowPointActive {
+                display: block;
+            }
+        }
+        .blueFullGroup {
+            .fullPointActive {
+                display: none;
+            }
+        }
+        .blueFullGroup.active {
+            .fullPointActive {
+                display: block;
+            }
+        }
+        //底部样式结束
+    }
+    @import "keyboard";
+}

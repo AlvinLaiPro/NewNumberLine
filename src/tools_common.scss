@@ -1,0 +1,68 @@
+.exam_skin_wood .com_btns {
+    display: inline-block;
+    margin: 0 .75em;
+    padding: 0 1.41667em;
+    height: 3.16667em;
+    line-height: 3.16667em;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: .41667em
+}
+
+.exam_skin_wood .com_btns .btns-primary-txt {
+    font-size: 1.5em;
+    color: #384650
+}
+
+.exam_skin_wood .com_btns.btns-primary {
+    border: 1px solid #397274;
+    background: -webkit-linear-gradient(bottom, #e9e9e9 0, #fff 100%);
+    background: linear-gradient(to top, #e9e9e9 0, #fff 100%)
+}
+
+.exam_skin_wood .com_btns.btns-primary .btns-primary-icon {
+    display: inline-block;
+    height: 3em;
+    vertical-align: top;
+    margin-right: .33333em;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100% auto
+}
+
+.exam_skin_wood .com_btns.btns-primary.ui_btn_active,
+.exam_skin_wood .com_btns.btns-primary:active {
+    background: -webkit-linear-gradient(bottom, #76b8ba 0, #89c5c7 100%);
+    background: linear-gradient(to top, #76b8ba 0, #89c5c7 100%)
+}
+
+.exam_skin_wood .com_btns.btns-primary.ui_btn_active .btns-primary-txt,
+.exam_skin_wood .com_btns.btns-primary:active .btns-primary-txt {
+    color: #fff
+}
+
+.exam_skin_wood .com_btns.btns-primary.ui_btn_active .btns-primary-icon,
+.exam_skin_wood .com_btns.btns-primary:active .btns-primary-icon {
+    background-position: center bottom
+}
+
+.exam_skin_wood .com_btns.btns-primary.click_disabled {
+    border-color: #93989a;
+    background: -webkit-linear-gradient(top, #c8d1d7 0, #c1c8cc 100%);
+    background: linear-gradient(to bottom, #c8d1d7 0, #c1c8cc 100%);
+    cursor: default
+}
+
+.exam_skin_wood .com_btns.btns-primary.click_disabled .btns-primary-txt {
+    color: #969fa4
+}
+
+.exam_skin_wood .com_btns.btns-primary.click_disabled .btns-primary-icon {
+    background-position: center center
+}
+
+.exam_skin_wood .tool_operate_bar {
+    display: block;
+    min-width: 5em;
+    text-align: center
+}
