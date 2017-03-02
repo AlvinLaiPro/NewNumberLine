@@ -2,9 +2,9 @@ import BaseControl from './BaseControl'
 import Point from './Point'
 import {
     parseMath
-} from 'jqmath';
-let Snap = require('snapsvg');
+} from 'jqmath'
 let Fraction = require('fraction.js');
+let Snap = require('snapsvg');
 
 export default class GraphControl extends BaseControl {
     /**
@@ -376,10 +376,16 @@ export default class GraphControl extends BaseControl {
         let mod = this.getMod();
 
         for (let i = mod.leftMod; i.compare(this.app.config.leftDivision) <= 0; i = i.add(1)) {
+            if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.minValue) < 0) {
+                break;
+            }
             this.unitGroup.add(this.drawUnit(i.neg()));
         }
 
         for (let i = mod.rightMod; i.compare(this.app.config.rightDivision) <= 0; i = i.add(1)) {
+            if (i.mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.maxValue) > 0) {
+                break;
+            }
             this.unitGroup.add(this.drawUnit(i));
         }
 
@@ -454,20 +460,33 @@ export default class GraphControl extends BaseControl {
             }
 
             for (let i = mod.leftMod; i.compare(this.app.config.leftDivision) <= 0; i = i.add(1)) {
+                if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.minValue) < 0) {
+                    break;
+                }
                 let currentValue = i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2);
                 currentValue.compare(0) == 0 || currentValue.compare(1) == 0 ? this.unitTextContainer.append(this.drawUnitText(i.neg())) : null;
             }
 
             for (let i = mod.rightMod; i.compare(this.app.config.rightDivision) <= 0; i = i.add(1)) {
+
+                if (i.mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.maxValue) > 0) {
+                    break;
+                }
                 let currentValue = i.mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2);
                 currentValue.compare(0) == 0 || currentValue.compare(1) == 0 ? this.unitTextContainer.append(this.drawUnitText(i)) : null;
             }
         } else {
             for (let i = mod.leftMod; i.compare(this.app.config.leftDivision) <= 0; i = i.add(1)) {
+                if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.minValue) < 0) {
+                    break;
+                }
                 this.unitTextContainer.append(this.drawUnitText(i.neg()));
             }
 
             for (let i = mod.rightMod; i.compare(this.app.config.rightDivision) <= 0; i = i.add(1)) {
+                if (i.mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.maxValue) > 0) {
+                    break;
+                }
                 this.unitTextContainer.append(this.drawUnitText(i));
             }
         }
@@ -677,6 +696,7 @@ export default class GraphControl extends BaseControl {
         function scale(e) {
             if (!that.app.data.reset) that.app.data.reset = true;
             that._unSelected();
+            that.app.func._hideKeyboard();
             if (that.app.data.editPoint) {
                 that.app.data.editPoint.belong.showEdit = false;
                 that.app.data.editPoint = null;
@@ -781,7 +801,6 @@ export default class GraphControl extends BaseControl {
                     that._unSelected();
                     if (result) {
                         that.app.data.centerValue = result.neg().add(that.app.data.centerValue);
-                        console.log('centerValue', that.app.data.centerValue)
                         if (!that.app.data.reset) that.app.data.reset = true;
                     }
 
@@ -835,6 +854,7 @@ export default class GraphControl extends BaseControl {
                         that.app.data.delete = point.selected ? point : false;
                     } else if (type == 'disaggregation') {
                         let group = target.parent();
+                        // that.app.func._hideCVKeyboard();
                         if (group.hasClass('active')) {
                             group.removeClass('active');
                             that.app.disaggregation.tag = null;
@@ -937,17 +957,22 @@ export default class GraphControl extends BaseControl {
 
             let rectBox = $(e.target).closest('.rectBox');
             if (rectBox.hasClass('solution')) {
+                if (this.app.data.editPoint) {
+                    this.app.data.editPoint.belong.showEdit = false;
+                    this.app.data.editPoint = null;
+                }
                 let type = $.trim(rectBox.attr('class').replace(/(solution|rectBox)/ig, ''));
                 this.app.disaggregation.changeZIndex(type);
                 return;
             };
-            let lastChild = this.textBoxContainer.find('.rectBox:last-child');
             this.app.func._hideKeyboard();
             if (this.app.data.editPoint) {
                 if (this.app.data.editPoint != rectBox[0].belong) {
                     this.app.data.editPoint.belong.showEdit = false;
-                    this.app.data.editPoint = null;
-                    return
+                    this.app.data.currPoint = rectBox[0].belong.belong;
+                    this.app.data.editPoint = rectBox[0].belong;
+                    rectBox[0].belong.changeZIndex();
+                    this.app.data.currPoint.showEdit = true;
                 }
             } else {
                 this._unSelected();

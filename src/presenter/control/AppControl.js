@@ -47,12 +47,11 @@ export default class AppControl extends BaseControl {
         AppControl._inst = null;
     }
 
-
+    
     /**
      * 初始化事件
      */
     init(view, extendData) {
-        this.basePath = '../';
         this.$view = $(view);
         this.i18N = I18NControl.getInst().init(this)
         this.config = AppConfig.getInst().init(this);

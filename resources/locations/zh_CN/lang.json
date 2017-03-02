@@ -14,7 +14,7 @@
     "btn_next_step": "下一步",
     "shadow": "相反数",
     "distance": "距离",
-    "showValue": "数值",
+    "show_value": "数值",
     "confirm_unitLength": "改变单位长度将会清除您的已做内容哦！",
     "confirm_no_number": "您将选择使用无数值数轴！",
     "confirm_reset": "您确定重置数轴到预设状态吗？",

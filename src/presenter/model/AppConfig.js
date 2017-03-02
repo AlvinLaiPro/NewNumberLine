@@ -59,7 +59,7 @@ class AppConfig {
             this.basePath + 'resources/images/markred.png',
             this.basePath + 'resources/images/markyellow.png',
         ];
-        this.pointImageWidth = Math.round(this.fontSize / 24 * 40);
+        this.pointImageWidth = Math.round(this.fontSize / 24 * 42);
 
 
         this.pointSelectedImageArr = [
@@ -68,7 +68,7 @@ class AppConfig {
             this.basePath + 'resources/images/markyellow-on.png',
         ];
 
-        this.pointSelectedImageWidth = Math.round(this.fontSize / 24 * 42);
+        this.pointSelectedImageWidth = Math.round(this.fontSize / 24 * 44);
         this.pointColorArr = [
             '#00a9a0',
             '#ff3954',
@@ -84,9 +84,6 @@ class AppConfig {
         this.pointRadius = Math.round(this.fontSize / 24 * 15);
 
         this.controlStrokeWidth = Math.round(this.fontSize / 24 * 10);
-
-        //Math.round(this.pointRadius * 2 / this.unitLength * 100) / 100;
-        this.span = this.unitValue / 2;
 
         this.sideControlFillColor = '#fff';
         this.sideControlStrokeColor = '#4ba4f7';

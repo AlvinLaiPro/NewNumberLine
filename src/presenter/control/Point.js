@@ -156,7 +156,6 @@ class basePoint {
     }
 
     changeZIndex() {
-
         let app = AppControl.getInst();
 
         this.markPointGroup.toFront(this.markPointGroup.parent());
@@ -173,7 +172,7 @@ class basePoint {
 
     }
 
-    setPosition() {
+    setPosition(bool) {
 
         let app = AppControl.getInst();
         if (!app.GraphControl.getCurrentRange(this.value)) {
@@ -241,7 +240,10 @@ class basePoint {
             this.$box.find('span').html(domValue);
         }
         this.showDistance ? this.updateDistanceContent(true) : null;
-        this.changeZIndex();
+
+        if (!bool) {
+            this.changeZIndex();
+        }
 
     }
 
@@ -295,6 +297,7 @@ class basePoint {
     updateShow(val) {
         if (!this.outside && val) {
             this.markPointGroup.removeClass('hide_dom');
+            this.changeZIndex();
         } else {
             this.markPointGroup.addClass('hide_dom');
             this.showDistance = false;
@@ -609,9 +612,9 @@ class Point {
         (!this.selectedGroup.linkGroup.outside && this.selectedGroup.linkGroup.show) && (this.selectedGroup.linkGroup.showDistance = val);
     }
 
-    setPosition() {
-        this.pointGroup.setPosition();
-        this.negPointGroup.setPosition();
+    setPosition(bool = false) {
+        this.pointGroup.setPosition(bool);
+        this.negPointGroup.setPosition(bool);
     }
 
     updateSelected(val) {
@@ -701,8 +704,6 @@ class Point {
                 app.GraphControl.menuContainer.find('.distance').addClass('ui_btn_disabled');
             }
         }
-
-
 
         app.GraphControl.menuContainer.css({
             left: pos

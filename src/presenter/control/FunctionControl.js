@@ -37,6 +37,9 @@ export default class FunctionControl extends BaseControl {
         this.$skip = this.$index.find('.skip');
         this.$nextTep = this.$index.find('.nextTep');
 
+        this.$body = $view.find('.NewNumberLine_body');
+        this.$footer = $view.find('.NewNumberLine_footer');
+
         //解集
         this.$number_left = $view.find('.NewNumberLine_left');
         this.$solutionSet = this.$number_left.find('.com_btns');
@@ -103,7 +106,8 @@ export default class FunctionControl extends BaseControl {
         this.$ulInput.off('click');
         this.$mpInput.off('click');
         $(document).off('keydown');
-        document.removeEventListener('click', this._globalClickEvent);
+        this.$body.off('click', this._globalClickEvent);
+        this.$footer.off('click', this._globalClickEvent);
     }
 
     /**
@@ -136,6 +140,8 @@ export default class FunctionControl extends BaseControl {
             this.app.GraphControl._unSelected();
             if (!this.$markPoint.hasClass('ui_btn_active')) {
                 this._showMPKeyboard();
+            } else {
+                this._hideMPKeyboardInput();
             }
         });
         //单位长度按钮上的事件监听
@@ -153,6 +159,8 @@ export default class FunctionControl extends BaseControl {
             this._hideCVKeyboard();
             if (!this.$unitLength.hasClass('ui_btn_active')) {
                 this._showULSelector();
+            } else {
+                this._hideULModeSelector();
             }
         });
         //无数值模式
@@ -174,9 +182,8 @@ export default class FunctionControl extends BaseControl {
             this._showULKeyboard();
         });
         //点击键盘外其他任何地方，隐藏键盘以及将input的值置空
-        document.addEventListener("click", this._globalClickEvent);
-
-
+        this.$body.on('touchend click', this._globalClickEvent);
+        this.$footer.on("click", this._globalClickEvent);
 
         //标记点和单位长度物理键盘输入的事件监听
         this.$mpInput.keypress((e) => this._phyKeyboard(e, this.app.config.mpMaxLength, 2, this.mpKeyboard, true));
@@ -518,6 +525,7 @@ export default class FunctionControl extends BaseControl {
             this.toolTip.showTooltip(this.app.i18N.i18nData['invalid_input']);
             return;
         }
+        let type = this.app.data.solutionType;
         num = this._adjustValue(num);
         this._isNeedJump(num);
         let points = this.app.config.disaggregationPoints,
@@ -525,7 +533,7 @@ export default class FunctionControl extends BaseControl {
         for (let i = 0; i < len; i++) {
             if (!points[i] || !points[i].isShow) {
                 points[i].value = num;
-                points[i].type = this.app.data.solutionType;
+                points[i].type = type;
                 points[i].isShow = true;
                 this.app.disaggregation.changeZIndex(this.app.config.pointClassArr[i]);
                 break;

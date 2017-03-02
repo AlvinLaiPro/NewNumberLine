@@ -1,5 +1,6 @@
 var path = require('path');
 var CopyAssetsPlugin = require('copyassets-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var combineLoaders = require("webpack-combine-loaders");
@@ -81,9 +82,10 @@ module.exports = {
         extensions: ['', '.js']
     },
     plugins: [
-        new StyleLintPlugin({
+        // new webpack.NoErrorsPlugin(),
+        /*new StyleLintPlugin({
             syntax: 'scss'
-        }),
+        }),*/
         new ExtractTextPlugin("styles.css"),
         new HtmlWebpackPlugin({
             favicon: 'resources/favicon.ico',
@@ -92,7 +94,22 @@ module.exports = {
             css: ['styles.css']
         }),
         new CleanWebpackPlugin(['dist']),
-        new CopyAssetsPlugin(['./dist', './docs']),
+        new CopyWebpackPlugin([{
+            from: __dirname + '/resources',
+            // to: __dirname +' /docs/resources/'
+            to: 'resources'
+            // flatten: true,
+            // force: true
+        },{
+            from: __dirname + '/resources',
+            // to: __dirname +' /docs/resources/'
+            to: __dirname + '/docs/resources'
+            // flatten: true,
+            // force: true
+        }],{
+            copyUnmodified: true
+        }),
+        new CopyAssetsPlugin(['./dist/**/*', './docs']),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"

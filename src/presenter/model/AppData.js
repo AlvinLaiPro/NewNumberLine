@@ -123,7 +123,7 @@ export default class AppData {
         // this.app.config.span = Math.round(this.app.config.pointRadius * 2 / val * 100) / 100;
         this.app.GraphControl.updateByType('stretch');
         for (let point of this.data.pointArr) {
-            point.setPosition();
+            point.setPosition(true);
         };
         this.app.disaggregation.updateDisaggregation();
     }
@@ -192,9 +192,10 @@ export default class AppData {
     set centerValue(val) {
         this.app.config.centerValue = val;
         this.app.GraphControl.updateByType('move');
-
+        this.app.func._hideKeyboard();
         for (let point of this.data.pointArr) {
-            point.setPosition();
+            point.setPosition(true);
+            console.log('setposition')
         };
     }
 

@@ -5,7 +5,6 @@ import {
     parseMath
 } from 'jqmath'
 let Fraction = require('fraction.js');
-let Snap = require('snapsvg');
 
 export default class DisaggregationControl extends BaseControl {
     /**
@@ -67,25 +66,25 @@ export default class DisaggregationControl extends BaseControl {
         });
 
         // 绿色空洞
-        this.greenHollow = this.drawDisaggregationPoint('resources/images/hollowrange-green.png').addClass('hollowPoint hide_dom');
+        this.greenHollow = this.drawDisaggregationPoint('resources/images/hollowrange-green.png').addClass('hollowPoint ');
         // 绿色实洞
-        this.greenFull = this.drawDisaggregationPoint('resources/images/fullrange-green.png').addClass('fullPoint hide_dom');
+        this.greenFull = this.drawDisaggregationPoint('resources/images/fullrange-green.png').addClass('fullPoint ');
         // 绿色空洞选中
         this.greenHollowActive = this.drawDisaggregationPoint('resources/images/hollowrange-green-active.png').addClass('hollowPointActive');
         // 绿色实洞选中
         this.greenFullActive = this.drawDisaggregationPoint('resources/images/fullrange-green-active.png').addClass('fullPointActive');
         // 红色空洞
-        this.pinkHollow = this.drawDisaggregationPoint('resources/images/hollowrange-red.png').addClass('hollowPoint hide_dom');
+        this.pinkHollow = this.drawDisaggregationPoint('resources/images/hollowrange-red.png').addClass('hollowPoint ');
         // 红色实洞
-        this.pinkFull = this.drawDisaggregationPoint('resources/images/fullrange-red.png').addClass('fullPoint hide_dom');
+        this.pinkFull = this.drawDisaggregationPoint('resources/images/fullrange-red.png').addClass('fullPoint ');
         // 红色空洞选中
         this.pinkHollowActive = this.drawDisaggregationPoint('resources/images/hollowrange-red-active.png').addClass('hollowPointActive');
         // 红色实洞选中
         this.pinkFullActive = this.drawDisaggregationPoint('resources/images/fullrange-red-active.png').addClass('fullPointActive');
         // 蓝色空洞
-        this.blueHollow = this.drawDisaggregationPoint('resources/images/hollowrange-blue.png').addClass('hollowPoint hide_dom');
+        this.blueHollow = this.drawDisaggregationPoint('resources/images/hollowrange-blue.png').addClass('hollowPoint ');
         // 蓝色实洞
-        this.blueFull = this.drawDisaggregationPoint('resources/images/markyellow.png').addClass('fullPoint hide_dom');
+        this.blueFull = this.drawDisaggregationPoint('resources/images/markyellow.png').addClass('fullPoint ');
         // 蓝色空洞选中
         this.blueHollowActive = this.drawDisaggregationPoint('resources/images/hollowrange-blue-active.png').addClass('hollowPointActive');
         // 蓝色实洞选中
@@ -205,6 +204,7 @@ export default class DisaggregationControl extends BaseControl {
 
         group.toFront(group.parent());
         $box.appendTo(this.app.GraphControl.textBoxContainer);
+        this.app.func._hideKeyboard();
     }
 
     // 更新解集

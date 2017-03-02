@@ -18,13 +18,11 @@ export default class I18NControl {
      * 构造
      */
     constructor() {
-
         this.i18nData = lang;
     }
-
-    /**
-     * 析构
-     */
+        /**
+         * 析构
+         */
     destroy() {
         I18NControl._inst = null;
     }
@@ -50,7 +48,8 @@ export default class I18NControl {
         $view.find('.skip span').text(data['btn_skip']);
         $view.find('.shadow .round_txt').text(data['shadow']);
         $view.find('.distance .round_txt').text(data['distance']);
-        $view.find('.showValue .round_txt').text(data['showValue']);
+        $view.find('.showValue .round_txt').text(data['show_value']);
+        $view.find('.btn_reset').text(data['btn_reset']);
         $confirmBox_btn.find('a:first').text(data['confirm']);
         $confirmBox_btn.find('a:last').text(data['cancel']);
 
