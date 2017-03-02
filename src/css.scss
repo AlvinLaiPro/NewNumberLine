@@ -97,64 +97,64 @@ body {
                 transform: translate(-50%, 0);
                 width: pxToEm(274px);
                 height: pxToEm(97px);
-                background: url(../resources/images/next-tep.png) no-repeat;
+                background: url(./resources/images/next-tep.png) no-repeat;
                 background-size: 100% 100%;
             }
             &.layerFull01 {
-                background: url(../resources/images/index1.png) no-repeat;
+                background: url(./resources/images/index1.png) no-repeat;
                 background-size: 100% 100%;
                 /*.operation {
                     width: pxToEm(599px);
                     height: pxToEm(335px);
-                    background: url(../resources/images/guide_01.png) no-repeat;
+                    background: url(./resources/images/guide_01.png) no-repeat;
                     background-size: 100% 100%;
                     left: 50%;
                     top: 50%;
                 }*/
             }
             &.layerFull02 {
-                background: url(../resources/images/index2.png) no-repeat;
+                background: url(./resources/images/index2.png) no-repeat;
                 background-size: 100% 100%;
                 /* .operation {
                     width: pxToEm(945px);
                     height: pxToEm(335px);
-                    background: url(../resources/images/guide_02.png) no-repeat;
+                    background: url(./resources/images/guide_02.png) no-repeat;
                     background-size: 100% 100%;
                     left: 50%;
                     top: 50%;
                 }*/
             }
             &.layerFull03 {
-                background: url(../resources/images/mask01.png) no-repeat;
+                background: url(./resources/images/mask01.png) no-repeat;
                 background-size: 100% 100%;
                 /*.operation {
                     width: pxToEm(1013px);
                     height: pxToEm(550px);
-                    background: url(../resources/images/guide_03.png) no-repeat;
+                    background: url(./resources/images/guide_03.png) no-repeat;
                     background-size: 100% 100%;
                     left: 46.1%;
                     bottom: -7.8em;
                 }*/
             }
             &.layerFull04 {
-                background: url(../resources/images/mask02.png) no-repeat;
+                background: url(./resources/images/mask02.png) no-repeat;
                 background-size: 100% 100%;
                 /*.operation {
                     width: pxToEm(764px);
                     height: 20.5em;
-                    background: url(../resources/images/guide_04.png) no-repeat;
+                    background: url(./resources/images/guide_04.png) no-repeat;
                     background-size: 100% 100%;
                     left: 53%;
                     bottom: -3em;
                 }*/
             }
             &.layerFull05 {
-                background: url(../resources/images/mask03.png) no-repeat;
+                background: url(./resources/images/mask03.png) no-repeat;
                 background-size: 100% 100%;
                 /* .operation {
                     width: pxToEm(632px);
                     height: pxToEm(212px);
-                    background: url(../resources/images/guide_05.png) no-repeat;
+                    background: url(./resources/images/guide_05.png) no-repeat;
                     background-size: 100% 100%;
                     left: 67%;
                     bottom: 1.9em;
@@ -325,15 +325,15 @@ body {
                     display: block;
                 }
                 &.blue {
-                    background: url(../resources/images/edit-blue.png) no-repeat;
+                    background: url(./resources/images/edit-blue.png) no-repeat;
                     background-size: 100% 100%;
                 }
                 &.pink {
-                    background: url(../resources/images/edit-red.png) no-repeat;
+                    background: url(./resources/images/edit-red.png) no-repeat;
                     background-size: 100% 100%;
                 }
                 &.green {
-                    background: url(../resources/images/edit-green.png) no-repeat;
+                    background: url(./resources/images/edit-green.png) no-repeat;
                     background-size: 100% 100%;
                 }
             }
@@ -579,7 +579,7 @@ body {
                 color: #e06313;
             }
             .item_1:active .noNumber_icon {
-                background: url(../resources/images/noNumberon-icon.png) no-repeat;
+                background: url(./resources/images/noNumberon-icon.png) no-repeat;
                 background-size: 100% 100%;
             }
             dd {
@@ -607,7 +607,7 @@ body {
                     display: inline-block;
                     width: pxToEm(124px);
                     height: pxToEm(27px);
-                    background: url(../resources/images/noNumber-icon.png) no-repeat;
+                    background: url(./resources/images/noNumber-icon.png) no-repeat;
                     background-size: 100% 100%;
                     vertical-align: middle;
                     margin-right: 0.6em;
@@ -699,73 +699,73 @@ body {
                 }
                 &.less {
                     .btns-primary-icon {
-                        background: url(../resources/images/less.png) no-repeat;
+                        background: url(./resources/images/less.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns:active .btns-primary-icon {
-                        background: url(../resources/images/less-on.png) no-repeat;
+                        background: url(./resources/images/less-on.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns.ui_btn_active .btns-primary-icon {
-                        background: url(../resources/images/less-on.png) no-repeat;
+                        background: url(./resources/images/less-on.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns.click_disabled .btns-primary-icon {
-                        background: url(../resources/images/less-dis.png) no-repeat;
+                        background: url(./resources/images/less-dis.png) no-repeat;
                         background-size: 100% 100%;
                     }
                 }
                 &.lessThan {
                     .btns-primary-icon {
-                        background: url(../resources/images/lessThan.png) no-repeat;
+                        background: url(./resources/images/lessThan.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns:active .btns-primary-icon {
-                        background: url(../resources/images/lessThan-on.png) no-repeat;
+                        background: url(./resources/images/lessThan-on.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns.ui_btn_active .btns-primary-icon {
-                        background: url(../resources/images/lessThan-on.png) no-repeat;
+                        background: url(./resources/images/lessThan-on.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns.click_disabled .btns-primary-icon {
-                        background: url(../resources/images/lessThan-dis.png) no-repeat;
+                        background: url(./resources/images/lessThan-dis.png) no-repeat;
                         background-size: 100% 100%;
                     }
                 }
                 &.greaterThan {
                     .btns-primary-icon {
-                        background: url(../resources/images/greaterThan.png) no-repeat;
+                        background: url(./resources/images/greaterThan.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns:active .btns-primary-icon {
-                        background: url(../resources/images/greaterThan-on.png) no-repeat;
+                        background: url(./resources/images/greaterThan-on.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns.ui_btn_active .btns-primary-icon {
-                        background: url(../resources/images/greaterThan-on.png) no-repeat;
+                        background: url(./resources/images/greaterThan-on.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns.click_disabled .btns-primary-icon {
-                        background: url(../resources/images/greaterThan-dis.png) no-repeat;
+                        background: url(./resources/images/greaterThan-dis.png) no-repeat;
                         background-size: 100% 100%;
                     }
                 }
                 &.greater {
                     .btns-primary-icon {
-                        background: url(../resources/images/greater.png) no-repeat;
+                        background: url(./resources/images/greater.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns:active .btns-primary-icon {
-                        background: url(../resources/images/greater-on.png) no-repeat;
+                        background: url(./resources/images/greater-on.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns.ui_btn_active .btns-primary-icon {
-                        background: url(../resources/images/greater-on.png) no-repeat;
+                        background: url(./resources/images/greater-on.png) no-repeat;
                         background-size: 100% 100%;
                     }
                     .com_btns.click_disabled .btns-primary-icon {
-                        background: url(../resources/images/greater-dis.png) no-repeat;
+                        background: url(./resources/images/greater-dis.png) no-repeat;
                         background-size: 100% 100%;
                     }
                 }
@@ -808,92 +808,92 @@ body {
                 &.mPoint {
                     position: relative;
                     i {
-                        background: url(../resources/images/mPoint.png);
+                        background: url(./resources/images/mPoint.png);
                         background-size: 100% 100%;
                     }
                     &:active i {
-                        background: url(../resources/images/mPoint-on.png);
+                        background: url(./resources/images/mPoint-on.png);
                         background-size: 100% 100%;
                     }
                     &.ui_btn_active i {
-                        background: url(../resources/images/mPoint-on.png);
+                        background: url(./resources/images/mPoint-on.png);
                         background-size: 100% 100%;
                     }
                     &.click_disabled i {
-                        background: url(../resources/images/mPoint-dis.png);
+                        background: url(./resources/images/mPoint-dis.png);
                         background-size: 100% 100%;
                     }
                 }
                 &.perLength {
                     position: relative;
                     i {
-                        background: url(../resources/images/perLength.png);
+                        background: url(./resources/images/perLength.png);
                         background-size: 100% 100%;
                     }
                     &:active i {
-                        background: url(../resources/images/perLength-on.png);
+                        background: url(./resources/images/perLength-on.png);
                         background-size: 100% 100%;
                     }
                     &.ui_btn_active i {
-                        background: url(../resources/images/perLength-on.png);
+                        background: url(./resources/images/perLength-on.png);
                         background-size: 100% 100%;
                     }
                     &.click_disabled i {
-                        background: url(../resources/images/perLength-dis.png);
+                        background: url(./resources/images/perLength-dis.png);
                         background-size: 100% 100%;
                     }
                 }
                 &.revert {
                     i {
-                        background: url(../resources/images/revert.png);
+                        background: url(./resources/images/revert.png);
                         background-size: 100% 100%;
                     }
                     &:active i {
-                        background: url(../resources/images/revert-on.png);
+                        background: url(./resources/images/revert-on.png);
                         background-size: 100% 100%;
                     }
                     &.ui_btn_active i {
-                        background: url(../resources/images/revert-on.png);
+                        background: url(./resources/images/revert-on.png);
                         background-size: 100% 100%;
                     }
                     &.click_disabled i {
-                        background: url(../resources/images/revert-dis.png);
+                        background: url(./resources/images/revert-dis.png);
                         background-size: 100% 100%;
                     }
                 }
                 &.clearer {
                     i {
-                        background: url(../resources/images/clear.png);
+                        background: url(./resources/images/clear.png);
                         background-size: 100% 100%;
                     }
                     &:active i {
-                        background: url(../resources/images/clear-on.png);
+                        background: url(./resources/images/clear-on.png);
                         background-size: 100% 100%;
                     }
                     &.ui_btn_active i {
-                        background: url(../resources/images/clear-on.png);
+                        background: url(./resources/images/clear-on.png);
                         background-size: 100% 100%;
                     }
                     &.click_disabled i {
-                        background: url(../resources/images/clear-dis.png);
+                        background: url(./resources/images/clear-dis.png);
                         background-size: 100% 100%;
                     }
                 }
                 &.delete {
                     i {
-                        background: url(../resources/images/delete.png);
+                        background: url(./resources/images/delete.png);
                         background-size: 100% 100%;
                     }
                     &:active i {
-                        background: url(../resources/images/delete-on.png);
+                        background: url(./resources/images/delete-on.png);
                         background-size: 100% 100%;
                     }
                     &.ui_btn_active i {
-                        background: url(../resources/images/delete-on.png);
+                        background: url(./resources/images/delete-on.png);
                         background-size: 100% 100%;
                     }
                     &.click_disabled i {
-                        background: url(../resources/images/delete-dis.png);
+                        background: url(./resources/images/delete-dis.png);
                         background-size: 100% 100%;
                     }
                 }

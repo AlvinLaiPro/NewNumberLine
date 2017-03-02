@@ -15,7 +15,7 @@ module.exports = {
     },
     entry: ['babel-polyfill', './src/app.js'],
     output: {
-        path: './docs/main',
+        path: './docs',
         filename: '[name].js'
     },
     module: {
@@ -88,14 +88,14 @@ module.exports = {
         }),*/
         new ExtractTextPlugin("styles.css"),
         new HtmlWebpackPlugin({
-            favicon: 'resources/favicon.ico',
+            favicon: 'src/resources/favicon.ico',
             template: 'src/index.html',
             title: 'newNumberLine',
             css: ['styles.css']
         }),
         new CleanWebpackPlugin(['docs']),
         new CopyWebpackPlugin([{
-            from: __dirname + '/resources',
+            from: __dirname + '/src/resources',
             // to: __dirname +' /docs/resources/'
             to: __dirname + '/docs/resources'
             // flatten: true,

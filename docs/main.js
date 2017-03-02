@@ -20302,7 +20302,7 @@
 	                        var that = this;
 	                        this.app = app;
 	                        this.fontSize = this.app.$view.find('#layout').css('font-size').replace(/px/, '');
-	                        this.basePath = '../';
+	                        this.basePath = './';
 
 	                        this.fraction = false; // 是否为分数数轴
 	                        this.noNumber = false; // 是否无数值编号

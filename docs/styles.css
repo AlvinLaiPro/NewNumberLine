@@ -554,7 +554,7 @@ body {
         /*.operation {
                     width: pxToEm(599px);
                     height: pxToEm(335px);
-                    background: url(../resources/images/guide_01.png) no-repeat;
+                    background: url(./resources/images/guide_01.png) no-repeat;
                     background-size: 100% 100%;
                     left: 50%;
                     top: 50%;
@@ -565,7 +565,7 @@ body {
         /* .operation {
                     width: pxToEm(945px);
                     height: pxToEm(335px);
-                    background: url(../resources/images/guide_02.png) no-repeat;
+                    background: url(./resources/images/guide_02.png) no-repeat;
                     background-size: 100% 100%;
                     left: 50%;
                     top: 50%;
@@ -576,7 +576,7 @@ body {
         /*.operation {
                     width: pxToEm(1013px);
                     height: pxToEm(550px);
-                    background: url(../resources/images/guide_03.png) no-repeat;
+                    background: url(./resources/images/guide_03.png) no-repeat;
                     background-size: 100% 100%;
                     left: 46.1%;
                     bottom: -7.8em;
@@ -587,7 +587,7 @@ body {
         /*.operation {
                     width: pxToEm(764px);
                     height: 20.5em;
-                    background: url(../resources/images/guide_04.png) no-repeat;
+                    background: url(./resources/images/guide_04.png) no-repeat;
                     background-size: 100% 100%;
                     left: 53%;
                     bottom: -3em;
@@ -598,7 +598,7 @@ body {
         /* .operation {
                     width: pxToEm(632px);
                     height: pxToEm(212px);
-                    background: url(../resources/images/guide_05.png) no-repeat;
+                    background: url(./resources/images/guide_05.png) no-repeat;
                     background-size: 100% 100%;
                     left: 67%;
                     bottom: 1.9em;
