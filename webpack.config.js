@@ -15,7 +15,7 @@ module.exports = {
     },
     entry: ['babel-polyfill', './src/app.js'],
     output: {
-        path: './dist',
+        path: './docs/main',
         filename: '[name].js'
     },
     module: {
@@ -90,17 +90,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             favicon: 'resources/favicon.ico',
             template: 'src/index.html',
-            title: 'parallelLine',
+            title: 'newNumberLine',
             css: ['styles.css']
         }),
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['docs']),
         new CopyWebpackPlugin([{
-            from: __dirname + '/resources',
-            // to: __dirname +' /docs/resources/'
-            to: 'resources'
-            // flatten: true,
-            // force: true
-        },{
             from: __dirname + '/resources',
             // to: __dirname +' /docs/resources/'
             to: __dirname + '/docs/resources'
@@ -109,7 +103,6 @@ module.exports = {
         }],{
             copyUnmodified: true
         }),
-        new CopyAssetsPlugin(['./dist/**/*', './docs']),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
