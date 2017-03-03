@@ -18,11 +18,12 @@ export default class I18NControl {
      * 构造
      */
     constructor() {
-            this.i18nData = lang;
-        }
-        /**
-         * 析构
-         */
+        this.i18nData = lang;
+    }
+
+    /**
+     * 析构
+     */
     destroy() {
         I18NControl._inst = null;
     }

@@ -44,8 +44,7 @@ export default class Keyboard {
 		this._$keyboard.on("click", 'a.btn_negative',e => this._oneClick(e));
 		this._$keyboard.on("click", 'a.btn_dot',e => this._dotClick(e));
 		this._$keyboard.on("click", 'a.btn_div',e => this._divClick(e));
-		this._$keyboard.on('click', (e) => {
-			e.preventDefault();
+		this._$keyboard.on('touchend click', (e) => {
 			e.stopPropagation();
 			this._$input.focus();
 		});
@@ -56,6 +55,8 @@ export default class Keyboard {
 	 * @param e
 	 */
 	_setInputValue(e, dotLength) {
+		e.preventDefault();
+		e.stopPropagation();
 		let value = e.currentTarget.textContent;
 		let currentVal = this._$input.val();
 		//如果小数已经是最大可输入位数,则无法再输入 
@@ -71,42 +72,52 @@ export default class Keyboard {
 		if (length <= this._maxLength) {
 			this._$input.val(value);
 		}
+		this._$input.focus();
 	}
 
 	/**
 	 * 点号只能点击一次,如果已经点击"/"按钮，则点击无效
 	 */
 	_dotClick(e) {
+		e.preventDefault();
+		e.stopPropagation();
 		let value = e.currentTarget.textContent;
 		let currentVal = this._$input.val();
 		if(currentVal.indexOf(value) == -1 && currentVal.indexOf('/') == -1) {
 			value = currentVal + value;
 			this._$input.val(value); 
 		}
+		this._$input.focus();
 	}
 
 	/**
 	 * 负号只能点击一次
 	 */
 	_oneClick(e) {
+		e.preventDefault();
+		e.stopPropagation();
 		let value = e.currentTarget.textContent;
 		let currentVal = this._$input.val();
 		if(currentVal.indexOf(value) == -1) {
 			value = currentVal + value;
 			this._$input.val(value); 
 		}
+		this._$input.focus();
 	}
 
 	/**
 	 * 分号只能点击一次,如果已经点击“.”按钮，则点击无效
 	 */
 	_divClick(e) {
+		e.preventDefault();
+		e.stopPropagation();
 		let value = e.currentTarget.textContent;
 		let currentVal = this._$input.val();
 		if(currentVal.indexOf(value) == -1 && currentVal.indexOf('.') == -1) {
 			value = currentVal + value;
 			this._$input.val(value); 
 		}
+		this._$input.focus();
 	}
 
 	/**
@@ -114,8 +125,11 @@ export default class Keyboard {
 	 * @param e
 	 */
 	_back(e) {
+		e.preventDefault();
+		e.stopPropagation();
 		let currentInput = this._$input.val();
 		this._$input.val(currentInput.slice(0, -1));
+		this._$input.focus();
 	}
 
 	/***************************************************************************
@@ -127,6 +141,8 @@ export default class Keyboard {
 	 * @param e
 	 */
 	enter(e) {
+		e.preventDefault();
+		e.stopPropagation();
 		this._$keyboard.hide();
 		this._cb(this._$input.val());
 		this._$input.hide();

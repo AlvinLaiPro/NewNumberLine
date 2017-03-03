@@ -5,7 +5,6 @@ import {
 } from 'jqmath'
 let Fraction = require('fraction.js');
 let Snap = require('snapsvg');
-
 export default class GraphControl extends BaseControl {
     /**
      * 单例
@@ -985,7 +984,8 @@ export default class GraphControl extends BaseControl {
             // this.app.func.showCVKeyboard(rectBox);
         });
 
-        this.editBtn.on('click', (e) => {
+        this.editBtn.on('touchend click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
             this.app.func.showCVKeyboard();
             this.app.data.editPoint.belong.showEdit = false;

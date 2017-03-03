@@ -99,15 +99,31 @@ export default class FunctionControl extends BaseControl {
      */
     destroy() {
         FunctionControl._inst = null;
+        this._cvkbHalfWidth = null;
+        this.mpKeyboard = null;
+        this.ulKeyboard = null;
+        this.cvKeyboard = null;
+        this.disKeyboard = null;
+        this.confirmBox = null;
+        this.toolTip = null;
+        this.$skip.off('click');
+        this.$nextTep.off('click');
         this.$markPoint.off('click');
         this.$unitLength.off('click');
         this.$noNumber.off('click');
         this.$customize.off('click');
-        this.$ulInput.off('click');
-        this.$mpInput.off('click');
+        this.$ulInput.off();
+        this.$mpInput.off();
+        this.$mpInput.parent().off();
+        this.$cvInput.off();
+        this.$disaggregationInput.off();
         $(document).off('keydown');
-        this.$body.off('click', this._globalClickEvent);
+        this.$body.off('touchend click', this._globalClickEvent);
         this.$footer.off('click', this._globalClickEvent);
+        this.$clear.off('click');
+        this.$delete.off('click');
+        this.$reset.off('click');
+        this.$number_left.off('click');
     }
 
     /**
@@ -188,20 +204,24 @@ export default class FunctionControl extends BaseControl {
         //标记点和单位长度物理键盘输入的事件监听
         this.$mpInput.keypress((e) => this._phyKeyboard(e, this.app.config.mpMaxLength, 2, this.mpKeyboard, true));
         this.$mpInput.on("input", this._phyKeyboardInput.bind(this.$mpInput, true));
+        this.$mpInput.parent().on('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
 
         this.$ulInput.keypress((e) => this._phyKeyboard(e, this.app.config.ulMaxLength, 1, this.ulKeyboard));
         this.$ulInput.on("input", this._phyKeyboardInput);
 
         this.$cvInput.keypress((e) => this._phyKeyboard(e, this.app.config.mpMaxLength, 2, this.cvKeyboard, true));
         this.$cvInput.on("input", this._phyKeyboardInput.bind(this.$cvInput, true));
-        this.$cvInput.on('click', (e) => {
+        this.$cvInput.on('touchend click', (e) => {
             e.preventDefault();
             e.stopPropagation();
         });
 
         this.$disaggregationInput.keypress((e) => this._phyKeyboard(e, this.app.config.mpMaxLength, 2, this.disKeyboard, true));
         this.$disaggregationInput.on("input", this._phyKeyboardInput.bind(this.$disaggregationInput, true));
-        this.$disaggregationInput.on('click', (e) => {
+        this.$disaggregationInput.on('touchend click', (e) => {
             e.preventDefault();
             e.stopPropagation();
         });

@@ -195,7 +195,6 @@ export default class AppData {
         this.app.func._hideKeyboard();
         for (let point of this.data.pointArr) {
             point.setPosition(true);
-            console.log('setposition')
         };
     }
 

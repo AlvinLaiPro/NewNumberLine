@@ -267,11 +267,9 @@ class basePoint {
     }
 
     updateShowEdit(val) {
-
         let app = AppControl.getInst();
         let y = this.$box.outerHeight();
         let x = this.getPosition();
-        console.log(y);
         let editBtn = app.GraphControl.editBtn.addClass(app.config.pointClassArr[this.index]);
         if (val) {
             this.$box.addClass('active');
@@ -392,7 +390,6 @@ class basePoint {
 
 
         if (val) {
-            console.log('changedistance')
             let originPos = app.GraphControl.axisGroup.select('.originPoint');
             let pos = this.getPosition();
             let domValue;

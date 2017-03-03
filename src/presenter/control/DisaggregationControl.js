@@ -510,6 +510,7 @@ export default class DisaggregationControl extends BaseControl {
         if (!map || arr.length < 2) {
             width = 0;
         }
+        width = new Fraction(width).round(2).valueOf();
         this.disaggregationGroup.attr({
             x,
             y,
