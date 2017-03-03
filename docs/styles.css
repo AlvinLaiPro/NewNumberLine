@@ -767,6 +767,12 @@ body {
       position: absolute;
       left: 0;
       width: 100%; }
+    .container .exam_skin_wood .pointEditContainer {
+      position: absolute;
+      left: 0;
+      width: 100%; }
+      .container .exam_skin_wood .pointEditContainer .fractions_keyboard_list {
+        display: none; }
     .container .exam_skin_wood .textBoxContainer {
       position: absolute;
       left: 0;

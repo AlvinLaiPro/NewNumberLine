@@ -44355,6 +44355,7 @@
 	                height = rectBox.css('height'),
 	                className = rectBox.attr('class');
 	            var arr = className.split(' ');
+	            var bottom = -(this.app.config.hangingDistance - this.app.config.unitTextGap - this.app.config.distanceGap / 2);
 	            this.$cvInput.show();
 	            this.$cvInputContainer.show();
 	            this.$cvInputContainer.removeClass('blue pink green');
@@ -44373,7 +44374,10 @@
 	                    left -= sub + 3;
 	                }
 	            }
-	            this.$cvKeyboard.css('left', left);
+	            this.$cvKeyboard.css({
+	                left: left,
+	                bottom: bottom
+	            });
 	            this.cvKeyboard.showKeyboard(this.$cvInput);
 	        }
 

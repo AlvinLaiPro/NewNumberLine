@@ -343,6 +343,14 @@ body {
             left: 0;
             width: 100%;
         }
+        .pointEditContainer {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            .fractions_keyboard_list {
+                display: none;
+            }
+        }
         .textBoxContainer {
             position: absolute;
             left: 0;

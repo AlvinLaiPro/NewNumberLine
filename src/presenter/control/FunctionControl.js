@@ -650,6 +650,7 @@ export default class FunctionControl extends BaseControl {
             height = rectBox.css('height'),
             className = rectBox.attr('class');
         let arr = className.split(' ');
+        let bottom = -(this.app.config.hangingDistance - this.app.config.unitTextGap - this.app.config.distanceGap / 2);
         this.$cvInput.show();
         this.$cvInputContainer.show();
         this.$cvInputContainer.removeClass('blue pink green');
@@ -668,7 +669,10 @@ export default class FunctionControl extends BaseControl {
                 left -= (sub + 3);
             }
         }
-        this.$cvKeyboard.css('left', left);
+        this.$cvKeyboard.css({
+            left,
+            bottom
+        });
         this.cvKeyboard.showKeyboard(this.$cvInput);
     }
 
