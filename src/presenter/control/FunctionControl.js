@@ -148,7 +148,6 @@ export default class FunctionControl extends BaseControl {
             if (this.app.data.editPoint) {
                 this.app.data.editPoint.belong.showEdit = false;
                 this.app.data.editPoint = null;
-                return
             }
             this.app.data.solutionType = 0;
             this._hideULModeSelector();
@@ -167,7 +166,6 @@ export default class FunctionControl extends BaseControl {
             if (this.app.data.editPoint) {
                 this.app.data.editPoint.belong.showEdit = false;
                 this.app.data.editPoint = null;
-                return
             }
             this.app.data.solutionType = 0;
             this.app.GraphControl._unSelected();
@@ -255,7 +253,6 @@ export default class FunctionControl extends BaseControl {
     _showMPKeyboard() {
         this.$markPoint.addClass("ui_btn_active");
         this.$mPKeyboardInput.show();
-        this.$mpInput.show();
         this.mpKeyboard.showKeyboard(this.$mpInput);
     }
 
@@ -264,7 +261,6 @@ export default class FunctionControl extends BaseControl {
      */
     _showULSelector() {
         this.$unitLength.addClass("ui_btn_active");
-        this.$ulInput.show();
         this.$uLModeSelector.show();
     }
 
@@ -433,11 +429,9 @@ export default class FunctionControl extends BaseControl {
      * 重置按钮的事件监听
      */
     _reset() {
-
         if (this.app.data.editPoint) {
             this.app.data.editPoint.belong.showEdit = false;
             this.app.data.editPoint = null;
-            return
         }
         if (!this.app.data.reset) return;
         this.confirmBox.showConfirmBox(this.app.i18N.i18nData['confirm_reset'], () => {
@@ -448,11 +442,9 @@ export default class FunctionControl extends BaseControl {
 
 
     _clear() {
-
         if (this.app.data.editPoint) {
             this.app.data.editPoint.belong.showEdit = false;
             this.app.data.editPoint = null;
-            return
         }
         if (!this.app.data.clear) return;
         this.confirmBox.showConfirmBox(this.app.i18N.i18nData['confirm_clear'], () => {
@@ -484,7 +476,6 @@ export default class FunctionControl extends BaseControl {
         if (funInstance.app.data.editPoint) {
             funInstance.app.data.editPoint.belong.showEdit = false;
             funInstance.app.data.editPoint = null;
-            return
         }
         //隐藏其他三个键盘
         funInstance._hideMPKeyboardInput();
@@ -528,6 +519,7 @@ export default class FunctionControl extends BaseControl {
             }
             //更新点的值
         this.app.data.currPoint && (this.app.data.currPoint.value = obj);
+        this._hideCVKeyboard();
     }
 
     /**
@@ -591,6 +583,7 @@ export default class FunctionControl extends BaseControl {
                 newOriginPoint = rightMaxLength.neg().add(this.app.config.maxValue).add(unitValue.div(2));
             }
             this.app.data.centerValue = newOriginPoint;
+            this.app.disaggregation.updateDisaggregation();
         }
     }
 
@@ -650,8 +643,6 @@ export default class FunctionControl extends BaseControl {
             height = rectBox.css('height'),
             className = rectBox.attr('class');
         let arr = className.split(' ');
-        let bottom = -(this.app.config.hangingDistance - this.app.config.unitTextGap - this.app.config.distanceGap / 2);
-        this.$cvInput.show();
         this.$cvInputContainer.show();
         this.$cvInputContainer.removeClass('blue pink green');
         this.$cvInputContainer.addClass(arr[1]);
@@ -661,6 +652,7 @@ export default class FunctionControl extends BaseControl {
             'left': left
         });
         left = parseFloat(left);
+        let bottom = -(this.app.config.hangingDistance - this.app.config.unitTextGap - this.app.config.distanceGap / 2);
         let sub = Math.abs(left) + this._cvkbHalfWidth - new Fraction(this.app.config.leftDivision).mul(this.app.config.unitLength).valueOf();
         if (sub > 0) {
             if (left < 0) {
@@ -680,7 +672,6 @@ export default class FunctionControl extends BaseControl {
      * 显示解集键盘
      */
     showDisKeyboard(type) {
-        this.$disaggregationInput.show();
         this.disKeyboard.showKeyboard(this.$disaggregationInput);
         let len = (type - 1) * 4.70834;
         this.$disaggregationKeyboard.css('marginLeft', `${len}em`);

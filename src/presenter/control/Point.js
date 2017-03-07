@@ -157,10 +157,21 @@ class basePoint {
 
     changeZIndex() {
         let app = AppControl.getInst();
+        let lastDistanceEl = [].slice.call(Snap.selectAll('.distanceGroup')).filter((el, i, arr) => {
+            return i == arr.length - 1
+        })[0];
 
         this.markPointGroup.toFront(this.markPointGroup.parent());
+        lastDistanceEl.after(this.distanceGroup);
         this.$box.appendTo(app.GraphControl.textBoxContainer);
         app.func._hideKeyboard();
+
+        let arr = app.data.pointArr;
+
+        if (this._belong) {
+            let index = arr.indexOf(this._belong);
+            index > -1 && (arr.push(arr.splice(index, 1)[0]));
+        }
 
     }
 
@@ -176,7 +187,7 @@ class basePoint {
 
         let app = AppControl.getInst();
         if (!app.GraphControl.getCurrentRange(this.value)) {
-            this.outside = true;
+            !this.outside && (this.outside = true);
             return;
         } else {
             this.outside = false;
@@ -184,15 +195,6 @@ class basePoint {
         let originPos = app.GraphControl.axisGroup.select('.originPoint');
         let pos = this.getPosition();
         let domValue;
-
-        if (originPos) {
-            originPos = +originPos.attr('cx');
-            if (Math.abs(pos - originPos) < (+this.textBox.width() + app.config.limitWidth)) {
-                this.showDistance = false;
-            }
-        } else {
-            this.showDistance = false;
-        }
 
         if (this.fraction) {
             domValue = new Fraction(this.value.valueOf()).toFraction(true).split(' ');
@@ -234,16 +236,27 @@ class basePoint {
             }
 
         } else {
+            this.textBox.removeClass('fraction');
             let distanceValue = this.value.round(2).abs().valueOf();
 
             this.textBox.html(distanceValue);
             this.$box.find('span').html(domValue);
         }
+
+        if (originPos) {
+            originPos = +originPos.attr('cx');
+            if (Math.abs(pos - originPos) < (+this.textBox.width() + app.config.limitWidth)) {
+                this.showDistance = false;
+            }
+        } else {
+            this.showDistance = false;
+        }
+
         this.showDistance ? this.updateDistanceContent(true) : null;
 
-        if (!bool) {
+        /*if (!bool) {
             this.changeZIndex();
-        }
+        }*/
 
     }
 
@@ -294,8 +307,10 @@ class basePoint {
 
     updateShow(val) {
         if (!this.outside && val) {
-            this.markPointGroup.removeClass('hide_dom');
-            this.changeZIndex();
+            if (this.markPointGroup.hasClass('hide_dom')) {
+                this.markPointGroup.removeClass('hide_dom');
+                // this.changeZIndex();
+            }
         } else {
             this.markPointGroup.addClass('hide_dom');
             this.showDistance = false;
@@ -311,7 +326,7 @@ class basePoint {
     set outside(val) {
         this._outside = val;
         if (val) {
-            this.showDistance = false;
+            this.showDistance && (this.showDistance = false);
         }
         this.show = this.show;
     }
@@ -339,6 +354,7 @@ class basePoint {
     updateSelected(val) {
         if (val) {
             this.markPointGroup.addClass('active');
+            this.linkGroup.changeZIndex();
             this.changeZIndex();
         } else {
             this.markPointGroup.removeClass('active');
@@ -653,7 +669,6 @@ class Point {
         if (originPoint) {
 
             if (Math.abs(pos - +originPoint.attr('cx')) < (+group.textBox.width() + app.config.limitWidth)) {
-                console.log('shortHideDistance')
                 app.GraphControl.menuContainer.find('.distance').addClass('ui_btn_disabled');
             } else {
                 app.GraphControl.menuContainer.find('.distance').removeClass('ui_btn_disabled');

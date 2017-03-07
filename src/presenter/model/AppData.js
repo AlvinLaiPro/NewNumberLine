@@ -212,8 +212,10 @@ export default class AppData {
     }
 
     set hasDistance(val) {
-        this.data.hasDistance = val;
-        this.app.disaggregation.updateDisaggregation();
+        if (this.data.hasDistance !== val) {
+            this.data.hasDistance = val;
+            this.app.disaggregation.updateDisaggregation();
+        }
     }
 
     get currPoint() {

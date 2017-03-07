@@ -375,14 +375,14 @@ export default class GraphControl extends BaseControl {
         let mod = this.getMod();
 
         for (let i = mod.leftMod; i.compare(this.app.config.leftDivision) <= 0; i = i.add(1)) {
-            if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.minValue) < 0) {
+            if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.minValue) < 0) {
                 break;
             }
             this.unitGroup.add(this.drawUnit(i.neg()));
         }
 
         for (let i = mod.rightMod; i.compare(this.app.config.rightDivision) <= 0; i = i.add(1)) {
-            if (i.mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.maxValue) > 0) {
+            if (i.mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.maxValue) > 0) {
                 break;
             }
             this.unitGroup.add(this.drawUnit(i));
@@ -459,7 +459,7 @@ export default class GraphControl extends BaseControl {
             }
 
             for (let i = mod.leftMod; i.compare(this.app.config.leftDivision) <= 0; i = i.add(1)) {
-                if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.minValue) < 0) {
+                if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.minValue) < 0) {
                     break;
                 }
                 let currentValue = i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2);
@@ -468,7 +468,7 @@ export default class GraphControl extends BaseControl {
 
             for (let i = mod.rightMod; i.compare(this.app.config.rightDivision) <= 0; i = i.add(1)) {
 
-                if (i.mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.maxValue) > 0) {
+                if (i.mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.maxValue) > 0) {
                     break;
                 }
                 let currentValue = i.mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2);
@@ -476,14 +476,14 @@ export default class GraphControl extends BaseControl {
             }
         } else {
             for (let i = mod.leftMod; i.compare(this.app.config.leftDivision) <= 0; i = i.add(1)) {
-                if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.minValue) < 0) {
+                if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.minValue) < 0) {
                     break;
                 }
                 this.unitTextContainer.append(this.drawUnitText(i.neg()));
             }
 
             for (let i = mod.rightMod; i.compare(this.app.config.rightDivision) <= 0; i = i.add(1)) {
-                if (i.mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.maxValue) > 0) {
+                if (i.mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.maxValue) > 0) {
                     break;
                 }
                 this.unitTextContainer.append(this.drawUnitText(i));
@@ -498,7 +498,7 @@ export default class GraphControl extends BaseControl {
         let val, text;
 
         if (this.app.config.fraction) {
-            val = i.mul(this.app.config.unitValue).add(this.app.config.centerValue).toFraction(true).split(' ').join('}{');
+            val = this.justifyUnitText(i.mul(this.app.config.unitValue).add(this.app.config.centerValue)).toFraction(true).split(' ').join('}{');
             text = $('<span/>').css({
                 left: i.mul(this.app.config.unitLength).valueOf()
             }).addClass('unitText');
@@ -675,6 +675,11 @@ export default class GraphControl extends BaseControl {
 
     };
 
+    justifyUnitText(val) {
+        let module = val.div(this.app.config.unitValue);
+        return module.round(0).mul(this.app.config.unitValue);
+    }
+
 
     /**
      * 绑定svg点击事件
@@ -747,8 +752,8 @@ export default class GraphControl extends BaseControl {
                     e.preventDefault();
                     e = e.changedTouches[0];
                 } else {
-                    console.log('clear distance');
                     eventData.distance = 0;
+                    type = 'scale';
                 }
             } else {
                 e.preventDefault();
@@ -970,6 +975,7 @@ export default class GraphControl extends BaseControl {
                     this.app.data.editPoint.belong.showEdit = false;
                     this.app.data.currPoint = rectBox[0].belong.belong;
                     this.app.data.editPoint = rectBox[0].belong;
+                    rectBox[0].belong.linkGroup.changeZIndex();
                     rectBox[0].belong.changeZIndex();
                     this.app.data.currPoint.showEdit = true;
                 }
@@ -977,6 +983,7 @@ export default class GraphControl extends BaseControl {
                 this._unSelected();
                 this.app.data.currPoint = rectBox[0].belong.belong;
                 this.app.data.editPoint = rectBox[0].belong;
+                rectBox[0].belong.linkGroup.changeZIndex();
                 rectBox[0].belong.changeZIndex();
                 this.app.data.currPoint.showEdit = true;
             }

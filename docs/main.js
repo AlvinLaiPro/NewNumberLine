@@ -21540,8 +21540,10 @@
 	            return this.data.hasDistance;
 	        },
 	        set: function set(val) {
-	            this.data.hasDistance = val;
-	            this.app.disaggregation.updateDisaggregation();
+	            if (this.data.hasDistance !== val) {
+	                this.data.hasDistance = val;
+	                this.app.disaggregation.updateDisaggregation();
+	            }
 	        }
 	    }, {
 	        key: 'currPoint',
@@ -21809,10 +21811,21 @@
 	        key: 'changeZIndex',
 	        value: function changeZIndex() {
 	            var app = _AppControl2.default.getInst();
+	            var lastDistanceEl = [].slice.call(Snap.selectAll('.distanceGroup')).filter(function (el, i, arr) {
+	                return i == arr.length - 1;
+	            })[0];
 
 	            this.markPointGroup.toFront(this.markPointGroup.parent());
+	            lastDistanceEl.after(this.distanceGroup);
 	            this.$box.appendTo(app.GraphControl.textBoxContainer);
 	            app.func._hideKeyboard();
+
+	            var arr = app.data.pointArr;
+
+	            if (this._belong) {
+	                var index = arr.indexOf(this._belong);
+	                index > -1 && arr.push(arr.splice(index, 1)[0]);
+	            }
 	        }
 	    }, {
 	        key: 'getPosition',
@@ -21827,7 +21840,7 @@
 
 	            var app = _AppControl2.default.getInst();
 	            if (!app.GraphControl.getCurrentRange(this.value)) {
-	                this.outside = true;
+	                !this.outside && (this.outside = true);
 	                return;
 	            } else {
 	                this.outside = false;
@@ -21835,15 +21848,6 @@
 	            var originPos = app.GraphControl.axisGroup.select('.originPoint');
 	            var pos = this.getPosition();
 	            var domValue = void 0;
-
-	            if (originPos) {
-	                originPos = +originPos.attr('cx');
-	                if (Math.abs(pos - originPos) < +this.textBox.width() + app.config.limitWidth) {
-	                    this.showDistance = false;
-	                }
-	            } else {
-	                this.showDistance = false;
-	            }
 
 	            if (this.fraction) {
 	                domValue = new Fraction(this.value.valueOf()).toFraction(true).split(' ');
@@ -21884,16 +21888,27 @@
 	                    this.textBox.addClass('fraction');
 	                }
 	            } else {
+	                this.textBox.removeClass('fraction');
 	                var _distanceValue2 = this.value.round(2).abs().valueOf();
 
 	                this.textBox.html(_distanceValue2);
 	                this.$box.find('span').html(domValue);
 	            }
+
+	            if (originPos) {
+	                originPos = +originPos.attr('cx');
+	                if (Math.abs(pos - originPos) < +this.textBox.width() + app.config.limitWidth) {
+	                    this.showDistance = false;
+	                }
+	            } else {
+	                this.showDistance = false;
+	            }
+
 	            this.showDistance ? this.updateDistanceContent(true) : null;
 
-	            if (!bool) {
+	            /*if (!bool) {
 	                this.changeZIndex();
-	            }
+	            }*/
 	        }
 	    }, {
 	        key: 'updateShowEdit',
@@ -21917,8 +21932,10 @@
 	        key: 'updateShow',
 	        value: function updateShow(val) {
 	            if (!this.outside && val) {
-	                this.markPointGroup.removeClass('hide_dom');
-	                this.changeZIndex();
+	                if (this.markPointGroup.hasClass('hide_dom')) {
+	                    this.markPointGroup.removeClass('hide_dom');
+	                    // this.changeZIndex();
+	                }
 	            } else {
 	                this.markPointGroup.addClass('hide_dom');
 	                this.showDistance = false;
@@ -21931,6 +21948,7 @@
 	        value: function updateSelected(val) {
 	            if (val) {
 	                this.markPointGroup.addClass('active');
+	                this.linkGroup.changeZIndex();
 	                this.changeZIndex();
 	            } else {
 	                this.markPointGroup.removeClass('active');
@@ -22094,7 +22112,7 @@
 	        set: function set(val) {
 	            this._outside = val;
 	            if (val) {
-	                this.showDistance = false;
+	                this.showDistance && (this.showDistance = false);
 	            }
 	            this.show = this.show;
 	        }
@@ -22243,7 +22261,6 @@
 	            if (originPoint) {
 
 	                if (Math.abs(pos - +originPoint.attr('cx')) < +group.textBox.width() + app.config.limitWidth) {
-	                    console.log('shortHideDistance');
 	                    app.GraphControl.menuContainer.find('.distance').addClass('ui_btn_disabled');
 	                } else {
 	                    app.GraphControl.menuContainer.find('.distance').removeClass('ui_btn_disabled');
@@ -34491,14 +34508,14 @@
 	            var mod = this.getMod();
 
 	            for (var i = mod.leftMod; i.compare(this.app.config.leftDivision) <= 0; i = i.add(1)) {
-	                if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.minValue) < 0) {
+	                if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.minValue) < 0) {
 	                    break;
 	                }
 	                this.unitGroup.add(this.drawUnit(i.neg()));
 	            }
 
 	            for (var _i = mod.rightMod; _i.compare(this.app.config.rightDivision) <= 0; _i = _i.add(1)) {
-	                if (_i.mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.maxValue) > 0) {
+	                if (_i.mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.maxValue) > 0) {
 	                    break;
 	                }
 	                this.unitGroup.add(this.drawUnit(_i));
@@ -34584,7 +34601,7 @@
 	                }
 
 	                for (var i = mod.leftMod; i.compare(this.app.config.leftDivision) <= 0; i = i.add(1)) {
-	                    if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.minValue) < 0) {
+	                    if (i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.minValue) < 0) {
 	                        break;
 	                    }
 	                    var currentValue = i.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2);
@@ -34593,7 +34610,7 @@
 
 	                for (var _i2 = mod.rightMod; _i2.compare(this.app.config.rightDivision) <= 0; _i2 = _i2.add(1)) {
 
-	                    if (_i2.mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.maxValue) > 0) {
+	                    if (_i2.mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.maxValue) > 0) {
 	                        break;
 	                    }
 	                    var _currentValue = _i2.mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2);
@@ -34601,14 +34618,14 @@
 	                }
 	            } else {
 	                for (var _i3 = mod.leftMod; _i3.compare(this.app.config.leftDivision) <= 0; _i3 = _i3.add(1)) {
-	                    if (_i3.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.minValue) < 0) {
+	                    if (_i3.neg().mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.minValue) < 0) {
 	                        break;
 	                    }
 	                    this.unitTextContainer.append(this.drawUnitText(_i3.neg()));
 	                }
 
 	                for (var _i4 = mod.rightMod; _i4.compare(this.app.config.rightDivision) <= 0; _i4 = _i4.add(1)) {
-	                    if (_i4.mul(this.app.config.unitValue).add(this.app.config.centerValue).compare(this.app.config.maxValue) > 0) {
+	                    if (_i4.mul(this.app.config.unitValue).add(this.app.config.centerValue).round(2).compare(this.app.config.maxValue) > 0) {
 	                        break;
 	                    }
 	                    this.unitTextContainer.append(this.drawUnitText(_i4));
@@ -34626,7 +34643,7 @@
 	                text = void 0;
 
 	            if (this.app.config.fraction) {
-	                val = i.mul(this.app.config.unitValue).add(this.app.config.centerValue).toFraction(true).split(' ').join('}{');
+	                val = this.justifyUnitText(i.mul(this.app.config.unitValue).add(this.app.config.centerValue)).toFraction(true).split(' ').join('}{');
 	                text = $('<span/>').css({
 	                    left: i.mul(this.app.config.unitLength).valueOf()
 	                }).addClass('unitText');
@@ -34805,12 +34822,18 @@
 	            return module.round(1).mul(this.app.config.unitValue);
 	        }
 	    }, {
-	        key: 'bindEvent',
-
+	        key: 'justifyUnitText',
+	        value: function justifyUnitText(val) {
+	            var module = val.div(this.app.config.unitValue);
+	            return module.round(0).mul(this.app.config.unitValue);
+	        }
 
 	        /**
 	         * 绑定svg点击事件
 	         */
+
+	    }, {
+	        key: 'bindEvent',
 	        value: function bindEvent() {
 	            var _this3 = this;
 
@@ -34879,8 +34902,8 @@
 	                        e.preventDefault();
 	                        e = e.changedTouches[0];
 	                    } else {
-	                        console.log('clear distance');
 	                        eventData.distance = 0;
+	                        type = 'scale';
 	                    }
 	                } else {
 	                    e.preventDefault();
@@ -35098,6 +35121,7 @@
 	                        _this3.app.data.editPoint.belong.showEdit = false;
 	                        _this3.app.data.currPoint = rectBox[0].belong.belong;
 	                        _this3.app.data.editPoint = rectBox[0].belong;
+	                        rectBox[0].belong.linkGroup.changeZIndex();
 	                        rectBox[0].belong.changeZIndex();
 	                        _this3.app.data.currPoint.showEdit = true;
 	                    }
@@ -35105,6 +35129,7 @@
 	                    _this3._unSelected();
 	                    _this3.app.data.currPoint = rectBox[0].belong.belong;
 	                    _this3.app.data.editPoint = rectBox[0].belong;
+	                    rectBox[0].belong.linkGroup.changeZIndex();
 	                    rectBox[0].belong.changeZIndex();
 	                    _this3.app.data.currPoint.showEdit = true;
 	                }
@@ -43768,7 +43793,6 @@
 	                if (_this3.app.data.editPoint) {
 	                    _this3.app.data.editPoint.belong.showEdit = false;
 	                    _this3.app.data.editPoint = null;
-	                    return;
 	                }
 	                _this3.app.data.solutionType = 0;
 	                _this3._hideULModeSelector();
@@ -43787,7 +43811,6 @@
 	                if (_this3.app.data.editPoint) {
 	                    _this3.app.data.editPoint.belong.showEdit = false;
 	                    _this3.app.data.editPoint = null;
-	                    return;
 	                }
 	                _this3.app.data.solutionType = 0;
 	                _this3.app.GraphControl._unSelected();
@@ -43893,7 +43916,6 @@
 	        value: function _showMPKeyboard() {
 	            this.$markPoint.addClass("ui_btn_active");
 	            this.$mPKeyboardInput.show();
-	            this.$mpInput.show();
 	            this.mpKeyboard.showKeyboard(this.$mpInput);
 	        }
 
@@ -43905,7 +43927,6 @@
 	        key: '_showULSelector',
 	        value: function _showULSelector() {
 	            this.$unitLength.addClass("ui_btn_active");
-	            this.$ulInput.show();
 	            this.$uLModeSelector.show();
 	        }
 
@@ -44114,7 +44135,6 @@
 	            if (this.app.data.editPoint) {
 	                this.app.data.editPoint.belong.showEdit = false;
 	                this.app.data.editPoint = null;
-	                return;
 	            }
 	            if (!this.app.data.reset) return;
 	            this.confirmBox.showConfirmBox(this.app.i18N.i18nData['confirm_reset'], function () {
@@ -44130,7 +44150,6 @@
 	            if (this.app.data.editPoint) {
 	                this.app.data.editPoint.belong.showEdit = false;
 	                this.app.data.editPoint = null;
-	                return;
 	            }
 	            if (!this.app.data.clear) return;
 	            this.confirmBox.showConfirmBox(this.app.i18N.i18nData['confirm_clear'], function () {
@@ -44168,7 +44187,6 @@
 	            if (funInstance.app.data.editPoint) {
 	                funInstance.app.data.editPoint.belong.showEdit = false;
 	                funInstance.app.data.editPoint = null;
-	                return;
 	            }
 	            //隐藏其他三个键盘
 	            funInstance._hideMPKeyboardInput();
@@ -44215,6 +44233,7 @@
 	            };
 	            //更新点的值
 	            this.app.data.currPoint && (this.app.data.currPoint.value = obj);
+	            this._hideCVKeyboard();
 	        }
 
 	        /**
@@ -44287,6 +44306,7 @@
 	                    newOriginPoint = rightMaxLength.neg().add(this.app.config.maxValue).add(unitValue.div(2));
 	                }
 	                this.app.data.centerValue = newOriginPoint;
+	                this.app.disaggregation.updateDisaggregation();
 	            }
 	        }
 
@@ -44355,8 +44375,6 @@
 	                height = rectBox.css('height'),
 	                className = rectBox.attr('class');
 	            var arr = className.split(' ');
-	            var bottom = -(this.app.config.hangingDistance - this.app.config.unitTextGap - this.app.config.distanceGap / 2);
-	            this.$cvInput.show();
 	            this.$cvInputContainer.show();
 	            this.$cvInputContainer.removeClass('blue pink green');
 	            this.$cvInputContainer.addClass(arr[1]);
@@ -44366,6 +44384,7 @@
 	                'left': left
 	            });
 	            left = parseFloat(left);
+	            var bottom = -(this.app.config.hangingDistance - this.app.config.unitTextGap - this.app.config.distanceGap / 2);
 	            var sub = Math.abs(left) + this._cvkbHalfWidth - new Fraction(this.app.config.leftDivision).mul(this.app.config.unitLength).valueOf();
 	            if (sub > 0) {
 	                if (left < 0) {
@@ -44388,7 +44407,6 @@
 	    }, {
 	        key: 'showDisKeyboard',
 	        value: function showDisKeyboard(type) {
-	            this.$disaggregationInput.show();
 	            this.disKeyboard.showKeyboard(this.$disaggregationInput);
 	            var len = (type - 1) * 4.70834;
 	            this.$disaggregationKeyboard.css('marginLeft', len + 'em');
@@ -44495,7 +44513,7 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 
 	var _classCallCheck2 = __webpack_require__(328);
@@ -44513,201 +44531,200 @@
 	 * @author ChenDS
 	 */
 	var Keyboard = function () {
-		/**
-	  * 构造函数
-	  * @param $keyboardView 数字键盘的DOM
-	  * @param maxLength 最大允许的输入位数，"." "/" "-"这三个不算在位数中
-	  * @param dotLength 小数的最大允许输入位数
-	  * @param cb 值变化的回调函数，参数是当前输入的值
-	  */
-		function Keyboard($keyboardView, maxLength, dotLength, cb) {
-			(0, _classCallCheck3.default)(this, Keyboard);
+	    /**
+	     * 构造函数
+	     * @param $keyboardView 数字键盘的DOM
+	     * @param maxLength 最大允许的输入位数，"." "/" "-"这三个不算在位数中
+	     * @param dotLength 小数的最大允许输入位数
+	     * @param cb 值变化的回调函数，参数是当前输入的值
+	     */
+	    function Keyboard($keyboardView, maxLength, dotLength, cb) {
+	        (0, _classCallCheck3.default)(this, Keyboard);
 
-			this._$keyboard = $keyboardView;
-			this._cb = cb;
-			this._maxLength = maxLength;
-			this._init(dotLength);
-		}
+	        this._$keyboard = $keyboardView;
+	        this._cb = cb;
+	        this._maxLength = maxLength;
+	        this._init(dotLength);
+	    }
 
-		/**
-	  * 析构
-	  */
+	    /**
+	     * 析构
+	     */
 
 
-		(0, _createClass3.default)(Keyboard, [{
-			key: "destroy",
-			value: function destroy() {
-				this._$keyboard.off();
-			}
+	    (0, _createClass3.default)(Keyboard, [{
+	        key: "destroy",
+	        value: function destroy() {
+	            this._$keyboard.off();
+	        }
 
-			/**
-	   * 调出数字键盘
-	   */
+	        /**
+	         * 调出数字键盘
+	         */
 
-		}, {
-			key: "showKeyboard",
-			value: function showKeyboard($input) {
-				this._$input = $input;
-				this._curVal = $input.val();
-				this._$keyboard.show();
-				this._$input.focus();
-			}
+	    }, {
+	        key: "showKeyboard",
+	        value: function showKeyboard($input) {
+	            this._$input = $input;
+	            this._curVal = $input.val();
+	            this._$keyboard.show();
+	            this._$input.focus();
+	        }
 
-			/**
-	   * 初始化事件
-	   */
+	        /**
+	         * 初始化事件
+	         */
 
-		}, {
-			key: "_init",
-			value: function _init(dotLength) {
-				var _this = this;
+	    }, {
+	        key: "_init",
+	        value: function _init(dotLength) {
+	            var _this = this;
 
-				this._$keyboard.on("click", 'a:not(.btn_del, .btn_enter, .btn_dot, .btn_div, .btn_negative)', function (e) {
-					return _this._setInputValue(e, dotLength);
-				});
-				this._$keyboard.on("click", 'a.btn_enter', function (e) {
-					return _this.enter(e);
-				});
-				this._$keyboard.on("click", 'a.btn_del', function (e) {
-					return _this._back(e);
-				});
-				this._$keyboard.on("click", 'a.btn_negative', function (e) {
-					return _this._oneClick(e);
-				});
-				this._$keyboard.on("click", 'a.btn_dot', function (e) {
-					return _this._dotClick(e);
-				});
-				this._$keyboard.on("click", 'a.btn_div', function (e) {
-					return _this._divClick(e);
-				});
-				this._$keyboard.on('touchend click', function (e) {
-					e.stopPropagation();
-					_this._$input.focus();
-				});
-			}
+	            this._$keyboard.on("click", 'a:not(.btn_del, .btn_enter, .btn_dot, .btn_div, .btn_negative)', function (e) {
+	                return _this._setInputValue(e, dotLength);
+	            });
+	            this._$keyboard.on("click", 'a.btn_enter', function (e) {
+	                return _this.enter(e);
+	            });
+	            this._$keyboard.on("click", 'a.btn_del', function (e) {
+	                return _this._back(e);
+	            });
+	            this._$keyboard.on("click", 'a.btn_negative', function (e) {
+	                return _this._oneClick(e);
+	            });
+	            this._$keyboard.on("click", 'a.btn_dot', function (e) {
+	                return _this._dotClick(e);
+	            });
+	            this._$keyboard.on("click", 'a.btn_div', function (e) {
+	                return _this._divClick(e);
+	            });
+	            this._$keyboard.on('touchend click', function (e) {
+	                e.stopPropagation();
+	                _this._$input.focus();
+	            });
+	        }
 
-			/**
-	   * 点击键盘上的数字时对应的事件
-	   * @param e
-	   */
+	        /**
+	         * 点击键盘上的数字时对应的事件
+	         * @param e
+	         */
 
-		}, {
-			key: "_setInputValue",
-			value: function _setInputValue(e, dotLength) {
-				e.preventDefault();
-				e.stopPropagation();
-				var value = e.currentTarget.textContent;
-				var currentVal = this._$input.val();
-				//如果小数已经是最大可输入位数,则无法再输入 
-				var index = currentVal.indexOf('.');
-				if (index !== -1) {
-					var arr = currentVal.slice(index + 1);
-					if (arr.length > dotLength - 1) return;
-				}
-				value = currentVal + value;
-				var length = value.length;
-				if (value.indexOf('-') != -1) length -= 1;
-				if (value.indexOf('.') != -1 || value.indexOf('/') != -1) length -= 1;
-				if (length <= this._maxLength) {
-					this._$input.val(value);
-				}
-				this._$input.focus();
-			}
+	    }, {
+	        key: "_setInputValue",
+	        value: function _setInputValue(e, dotLength) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	            var value = e.currentTarget.textContent;
+	            var currentVal = this._$input.val();
+	            //如果小数已经是最大可输入位数,则无法再输入 
+	            var index = currentVal.indexOf('.');
+	            if (index !== -1) {
+	                var arr = currentVal.slice(index + 1);
+	                if (arr.length > dotLength - 1) return;
+	            }
+	            value = currentVal + value;
+	            var length = value.length;
+	            if (value.indexOf('-') != -1) length -= 1;
+	            if (value.indexOf('.') != -1 || value.indexOf('/') != -1) length -= 1;
+	            if (length <= this._maxLength) {
+	                this._$input.val(value);
+	            }
+	            this._$input.focus();
+	        }
 
-			/**
-	   * 点号只能点击一次,如果已经点击"/"按钮，则点击无效
-	   */
+	        /**
+	         * 点号只能点击一次,如果已经点击"/"按钮，则点击无效
+	         */
 
-		}, {
-			key: "_dotClick",
-			value: function _dotClick(e) {
-				e.preventDefault();
-				e.stopPropagation();
-				var value = e.currentTarget.textContent;
-				var currentVal = this._$input.val();
-				if (currentVal.indexOf(value) == -1 && currentVal.indexOf('/') == -1) {
-					value = currentVal + value;
-					this._$input.val(value);
-				}
-				this._$input.focus();
-			}
+	    }, {
+	        key: "_dotClick",
+	        value: function _dotClick(e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	            var value = e.currentTarget.textContent;
+	            var currentVal = this._$input.val();
+	            if (currentVal.indexOf(value) == -1 && currentVal.indexOf('/') == -1) {
+	                value = currentVal + value;
+	                this._$input.val(value);
+	            }
+	            this._$input.focus();
+	        }
 
-			/**
-	   * 负号只能点击一次
-	   */
+	        /**
+	         * 负号只能点击一次
+	         */
 
-		}, {
-			key: "_oneClick",
-			value: function _oneClick(e) {
-				e.preventDefault();
-				e.stopPropagation();
-				var value = e.currentTarget.textContent;
-				var currentVal = this._$input.val();
-				if (currentVal.indexOf(value) == -1) {
-					value = currentVal + value;
-					this._$input.val(value);
-				}
-				this._$input.focus();
-			}
+	    }, {
+	        key: "_oneClick",
+	        value: function _oneClick(e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	            var value = e.currentTarget.textContent;
+	            var currentVal = this._$input.val();
+	            if (currentVal.indexOf(value) == -1) {
+	                value = currentVal + value;
+	                this._$input.val(value);
+	            }
+	            this._$input.focus();
+	        }
 
-			/**
-	   * 分号只能点击一次,如果已经点击“.”按钮，则点击无效
-	   */
+	        /**
+	         * 分号只能点击一次,如果已经点击“.”按钮，则点击无效
+	         */
 
-		}, {
-			key: "_divClick",
-			value: function _divClick(e) {
-				e.preventDefault();
-				e.stopPropagation();
-				var value = e.currentTarget.textContent;
-				var currentVal = this._$input.val();
-				if (currentVal.indexOf(value) == -1 && currentVal.indexOf('.') == -1) {
-					value = currentVal + value;
-					this._$input.val(value);
-				}
-				this._$input.focus();
-			}
+	    }, {
+	        key: "_divClick",
+	        value: function _divClick(e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	            var value = e.currentTarget.textContent;
+	            var currentVal = this._$input.val();
+	            if (currentVal.indexOf(value) == -1 && currentVal.indexOf('.') == -1) {
+	                value = currentVal + value;
+	                this._$input.val(value);
+	            }
+	            this._$input.focus();
+	        }
 
-			/**
-	   * 键盘上x按钮的监听函数
-	   * @param e
-	   */
+	        /**
+	         * 键盘上x按钮的监听函数
+	         * @param e
+	         */
 
-		}, {
-			key: "_back",
-			value: function _back(e) {
-				e.preventDefault();
-				e.stopPropagation();
-				var currentInput = this._$input.val();
-				this._$input.val(currentInput.slice(0, -1));
-				this._$input.focus();
-			}
+	    }, {
+	        key: "_back",
+	        value: function _back(e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	            var currentInput = this._$input.val();
+	            this._$input.val(currentInput.slice(0, -1));
+	            this._$input.focus();
+	        }
 
-			/***************************************************************************
-	   * 对外接口
-	   **************************************************************************/
+	        /***************************************************************************
+	         * 对外接口
+	         **************************************************************************/
 
-			/**
-	   * 键盘上点击enter的监听事件
-	   * @param e
-	   */
+	        /**
+	         * 键盘上点击enter的监听事件
+	         * @param e
+	         */
 
-		}, {
-			key: "enter",
-			value: function enter(e) {
-				e.preventDefault();
-				e.stopPropagation();
-				this._$keyboard.hide();
-				this._cb(this._$input.val());
-				this._$input.hide();
-			}
-		}, {
-			key: "input",
-			get: function get() {
-				return this._$input;
-			}
-		}]);
-		return Keyboard;
+	    }, {
+	        key: "enter",
+	        value: function enter(e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	            this._$keyboard.hide();
+	            this._cb(this._$input.val());
+	        }
+	    }, {
+	        key: "input",
+	        get: function get() {
+	            return this._$input;
+	        }
+	    }]);
+	    return Keyboard;
 	}();
 
 	exports.default = Keyboard;
@@ -45599,7 +45616,8 @@
 	            var downVerticalLine = group.select('.downVerticalLine');
 	            this.updateDisaggregationLine(verticalLine, x, -offsetY, x, -height);
 	            this.updateDisaggregationLine(downVerticalLine, x, offsetY, x, this.app.config.hangingDistance);
-	            this.updateDisaggregationLine(horizontalLine, x, -height, x + len * this.app.config.unitLength, -height);
+	            var x2 = x > 0 ? x + len * this.app.config.unitLength + this.app.config.unitWidth : x + len * this.app.config.unitLength - this.app.config.unitWidth;
+	            this.updateDisaggregationLine(horizontalLine, x, -height, x2, -height);
 	            this.updateDisaggregationPoint(group, x, type);
 	            this.updateDomContent($box, value, x, isFraction);
 	            $box.removeClass('hide_dom');

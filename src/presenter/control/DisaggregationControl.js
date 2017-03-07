@@ -543,7 +543,8 @@ export default class DisaggregationControl extends BaseControl {
         let downVerticalLine = group.select('.downVerticalLine');
         this.updateDisaggregationLine(verticalLine, x, -offsetY, x, -height);
         this.updateDisaggregationLine(downVerticalLine, x, offsetY, x, this.app.config.hangingDistance);
-        this.updateDisaggregationLine(horizontalLine, x, -height, x + len * this.app.config.unitLength, -height);
+        let x2 = x > 0 ? x + len * this.app.config.unitLength + this.app.config.unitWidth : x + len * this.app.config.unitLength - this.app.config.unitWidth;
+        this.updateDisaggregationLine(horizontalLine, x, -height, x2, -height);
         this.updateDisaggregationPoint(group, x, type);
         this.updateDomContent($box, value, x, isFraction);
         $box.removeClass('hide_dom');
